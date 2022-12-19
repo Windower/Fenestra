@@ -1,7 +1,7 @@
 # [Fenestra][github-project]
 
 [![Discord Server][discord-badge]][discord-url]
-[![Build Status][build-status-badge]][build-status-url]
+<!--[![Build Status][build-status-badge]][build-status-url]-->
 [![GitHub Contributors][contributors-badge]][contributors-url]
 [![GitHub Stars][stars-badge]][stars-url]
 [![GitHub Forks][forks-badge]][forks-url]
@@ -48,7 +48,7 @@ This project uses the [MIT][license] license.
 [forks-url]: https://github.com/Windower/Fenestra/network/members
 
 [discord-badge]: https://img.shields.io/discord/338590234235371531.svg?logo=discord&logoColor=white&colorB=7289da
-[build-status-badge]: https://github.com/windower/Fenestra/workflows/Build/badge.svg?branch=master&event=push
+[build-status-badge]: https://github.com/Windower/Fenestra/workflows/Build/badge.svg?branch=master&event=push
 [contributors-badge]: https://img.shields.io/github/contributors/Windower/Fenestra
 [stars-badge]: https://img.shields.io/github/stars/Windower/Fenestra
 [forks-badge]: https://img.shields.io/github/forks/Windower/Fenestra
