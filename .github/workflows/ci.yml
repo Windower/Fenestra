@@ -1,0 +1,96 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+
+env:
+  SYMBOLS_DAYS_TO_KEEP: 14
+  SYMBOLS_KEEP_LAST: 10
+  
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-2022
+    steps:
+      - name: Set up build environment
+        uses: microsoft/setup-msbuild@v1.0.3
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: |
+          &msbuild windower.sln -t:'restore;build' -p:configuration=release -m -nowarn:NU1503
+      - name: Install debug tools
+        run: choco install windows-sdk-10-version-2004-windbg
+      - name: Index sources
+        run: .github/workflows/index-sources
+      - name: Upload build artifacts
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v2
+        with:
+          name: binaries
+          path: build/bin/release/
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: windows-2022
+    if: github.event_name == 'push'
+    steps:
+      - name: Set up SSH
+        run: |
+          # Set up SSH
+          Write-Output 'Starting ssh-agent service...'
+          Get-Service -Name 'ssh-agent' | Set-Service -StartupType Manual
+          Start-Service -Name 'ssh-agent'
+          New-Item -ItemType Directory -Force -Path '~/.ssh' *>$null
+          $env:SSH_KEY | &ssh-add -
+          &ssh-keyscan -H "$(
+            @($env:SSH_HOST) + (Resolve-DnsName $env:SSH_HOST).IPAddress -Join ','
+          )" | Add-Content '~/.ssh/known_hosts'
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: binaries
+          path: artifacts
+      - name: Stage files
+        run: |
+          # Stage files
+          New-Item -ItemType Directory -Force -Path './staging/files' *>$null
+          Copy-Item './artifacts/windower.exe' -Destination './staging/files'
+          Copy-Item './artifacts/core.dll' -Destination './staging/files'
+          Copy-Item './artifacts/version.xml' -Destination './staging/files'
+          Copy-Item './artifacts/windower.msi' -Destination './staging/files'
+          Copy-Item './artifacts/windower.zip' -Destination './staging/files'
+          Copy-Item './artifacts/windower.portable.zip' -Destination './staging/files'
+          
+          New-Item -ItemType Directory -Force -Path './temp/symbols' *>$null
+          Copy-Item './artifacts/windower.exe' -Destination './temp/symbols/'
+          Copy-Item './artifacts/windower.pdb' -Destination './temp/symbols/'
+          Copy-Item './artifacts/core.dll' -Destination './temp/symbols/'
+          Copy-Item './artifacts/core.pdb' -Destination './temp/symbols/'
+      - name: Install debug tools
+        run: choco install windows-sdk-10-version-2004-windbg
+      - name: Update symbol database
+        run: .github/workflows/update-symbols
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SYMBOLS_PATH: ${{ secrets.SYMBOLS_PATH }}
+      - name: Deploy to server
+        run: .github/workflows/deploy
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          FILES_PATH: ${{ secrets.FILES_PATH }}
+          SYMBOLS_PATH: ${{ secrets.SYMBOLS_PATH }}

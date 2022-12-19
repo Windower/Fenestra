@@ -1,0 +1,173 @@
+<!--
+Copyright © Windower Dev Team
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files
+(the "Software"),to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Strings.About">About</sys:String>
+    <sys:String x:Key="Strings.AdjustResolution">Adjust resolution</sys:String>
+    <sys:String x:Key="Strings.RegionAuto">Automatic</sys:String>
+    <sys:String x:Key="Strings.ModeBorderless">Borderless Window</sys:String>
+    <sys:String x:Key="Strings.Cancel">Cancel</sys:String>
+    <sys:String x:Key="Strings.Close">Close</sys:String>
+    <sys:String x:Key="Strings.CopyrightError">Error retrieving assembly copyright information</sys:String>
+    <sys:String x:Key="Strings.CoreVersion">Core version:</sys:String>
+    <sys:String x:Key="Strings.CreateProfile">New profile</sys:String>
+    <sys:String x:Key="Strings.Display">Display</sys:String>
+    <sys:String x:Key="Strings.EditProfile">Edit profile</sys:String>
+    <sys:String x:Key="Strings.UpdateStatusChecking">Checking for updates</sys:String>
+    <sys:String x:Key="Strings.UpdateStatusDownloadingLauncher">Downloading launcher</sys:String>
+    <sys:String x:Key="Strings.UpdateStatusDownloadingCore">Downloading core</sys:String>
+    <sys:String x:Key="Strings.UpdateStatusInstalling">Installing updates</sys:String>
+    <sys:String x:Key="Strings.UpdateStatusRestarting">Windower is restarting</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusElevating">Starting PlayOnline Viewer as administrator</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusInstalling">Waiting for Steam to install Final Fantasy XI</sys:String>
+    <sys:String x:Key="Strings.RegionEU">Europe</sys:String>
+    <sys:String x:Key="Strings.ModeFullScreen">Full screen</sys:String>
+    <sys:String x:Key="Strings.FullScreenWarning">Switching windows is not supported in full screen</sys:String>
+    <sys:String x:Key="Strings.GeneralSettings">General</sys:String>
+    <sys:String x:Key="Strings.GitHub">GitHub</sys:String>
+    <sys:String x:Key="Strings.Height">Height</sys:String>
+    <sys:String x:Key="Strings.RegionJP">Japan</sys:String>
+    <sys:String x:Key="Strings.Launch">Launch</sys:String>
+    <sys:String x:Key="Strings.LauncherVersion">Launcher version:</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusCheckingDirectPlay">Checking DirectPlay</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusInstallingDirectPlay">Installing DirectPlay</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusLaunching">Starting PlayOnline Viewer</sys:String>
+    <sys:String x:Key="Strings.Minimize">Minimize</sys:String>
+    <sys:String x:Key="Strings.NewProfileNameFormat">Profile {0}</sys:String>
+    <sys:String x:Key="Strings.No">No</sys:String>
+    <sys:String x:Key="Strings.RegionNA">North America</sys:String>
+    <sys:String x:Key="Strings.Off">Off</sys:String>
+    <sys:String x:Key="Strings.On">On</sys:String>
+    <sys:String x:Key="Strings.PrimaryDisplay">Primary Display ({0})</sys:String>
+    <sys:String x:Key="Strings.ProfileNameConflictError">A profile with that name already exists.</sys:String>
+    <sys:String x:Key="Strings.ProfileNameEmptyError">The profile name must not be empty.</sys:String>
+    <sys:String x:Key="Strings.Region">Region</sys:String>
+    <sys:String x:Key="Strings.RemoveProfile">Remove profile</sys:String>
+    <sys:String x:Key="Strings.ReportBug">Report a bug</sys:String>
+    <sys:String x:Key="Strings.Resolution">Resolution</sys:String>
+    <sys:String x:Key="Strings.ResolutionFormat">{0} × {1}</sys:String>
+    <sys:String x:Key="Strings.SeeMore">See more</sys:String>
+    <sys:String x:Key="Strings.SupportForums">Support forums</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusTransferringSettings">Transferring settings</sys:String>
+    <sys:String x:Key="Strings.UseSteam">Launch through Steam®</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusWaitingForWindow">Waiting for PlayOnline Viewer to open</sys:String>
+    <sys:String x:Key="Strings.Width">Width</sys:String>
+    <sys:String x:Key="Strings.Docs">Documentation</sys:String>
+    <sys:String x:Key="Strings.ModeWindow">Window</sys:String>
+    <sys:String x:Key="Strings.WindowerWebsite">Windower website</sys:String>
+    <sys:String x:Key="Strings.WindowType">Mode</sys:String>
+    <sys:String x:Key="Strings.Yes">Yes</sys:String>
+    <sys:String x:Key="Strings.AdjustUIScale">Adjust user interface scale</sys:String>
+    <sys:String x:Key="Strings.AdvancedSettings">Advanced</sys:String>
+    <sys:String x:Key="Strings.BumpMapping">Bump mapping</sys:String>
+    <sys:String x:Key="Strings.EnvironmentAnimation">Environment animation</sys:String>
+    <sys:String x:Key="Strings.EnvironmentAnimationNormal">Limited</sys:String>
+    <sys:String x:Key="Strings.EnvironmentAnimationOff">Off</sys:String>
+    <sys:String x:Key="Strings.EnvironmentAnimationSmooth">Full</sys:String>
+    <sys:String x:Key="Strings.GraphicsSettings">Graphics</sys:String>
+    <sys:String x:Key="Strings.MapCompression">Compress area maps</sys:String>
+    <sys:String x:Key="Strings.Mipmapping">Mipmapping</sys:String>
+    <sys:String x:Key="Strings.Mipmapping0">Off</sys:String>
+    <sys:String x:Key="Strings.Mipmapping1">Low</sys:String>
+    <sys:String x:Key="Strings.Mipmapping2">Medium</sys:String>
+    <sys:String x:Key="Strings.Mipmapping3">High</sys:String>
+    <sys:String x:Key="Strings.MiscellaneousSettings">Misc.</sys:String>
+    <sys:String x:Key="Strings.Save">Save</sys:String>
+    <sys:String x:Key="Strings.SupersampleAntiAliasing">Supersample anti-aliasing</sys:String>
+    <sys:String x:Key="Strings.SupersampleAntiAliasingFormat">{0:0.##×}</sys:String>
+    <sys:String x:Key="Strings.TextureCompression">Texture compression</sys:String>
+    <sys:String x:Key="Strings.TextureCompressionHigh">Clouds and Lights</sys:String>
+    <sys:String x:Key="Strings.TextureCompressionLow">Clouds only</sys:String>
+    <sys:String x:Key="Strings.TextureCompressionUncompressed">None</sys:String>
+    <sys:String x:Key="Strings.UIScaleFormat">{0:0%}</sys:String>
+    <sys:String x:Key="Strings.AdjustGamma">Adjust image gamma</sys:String>
+    <sys:String x:Key="Strings.AdjustPosition">Adjust window position</sys:String>
+    <sys:String x:Key="Strings.Debug">Debug console</sys:String>
+    <sys:String x:Key="Strings.ChangeSettingsPath">Override settings path</sys:String>
+    <sys:String x:Key="Strings.ChangeUserPath">Override user data path</sys:String>
+    <sys:String x:Key="Strings.ChangeTempPath">Override temporary data path</sys:String>
+    <sys:String x:Key="Strings.SelectSettingsPath">Select settings path</sys:String>
+    <sys:String x:Key="Strings.SelectUserPath">Select user data path</sys:String>
+    <sys:String x:Key="Strings.SelectTempPath">Select temporary data path</sys:String>
+    <sys:String x:Key="Strings.Browse">Browse</sys:String>
+    <sys:String x:Key="Strings.DriverStability">Improve driver stability</sys:String>
+    <sys:String x:Key="Strings.FontType">Font</sys:String>
+    <sys:String x:Key="Strings.FontTypeCompressed">Compressed</sys:String>
+    <sys:String x:Key="Strings.FontTypeHighQuality">High Quality</sys:String>
+    <sys:String x:Key="Strings.FontTypeUncompressed">Uncompressed</sys:String>
+    <sys:String x:Key="Strings.GammaFormat">{0:0.0}</sys:String>
+    <sys:String x:Key="Strings.Horizontal">Horizontal</sys:String>
+    <sys:String x:Key="Strings.MaxSounds">Maximum simultaneous sounds</sys:String>
+    <sys:String x:Key="Strings.MaxSoundsFormat">{0:0;;Sound disabled}</sys:String>
+    <sys:String x:Key="Strings.PlayIntro">Play opening movie</sys:String>
+    <sys:String x:Key="Strings.PlaySoundWhenUnfocused">Play sound when window is inactive</sys:String>
+    <sys:String x:Key="Strings.Vertical">Vertical</sys:String>
+    <sys:String x:Key="Strings.ElevationRequired">PlayOnline Viewer requires elevation to run.</sys:String>
+    <sys:String x:Key="Strings.AdjustAccessControl">Adjust permissions</sys:String>
+    <sys:String x:Key="Strings.FixAccessControlPrompt">Administrator access required</sys:String>
+    <sys:String x:Key="Strings.FixAccessControlDescription">PlayOnline Viewer currently requires administrator access to run. Would you like us to make adjustments to PlayOnline Viewer so that it can run without administrator access?</sys:String>
+    <sys:String x:Key="Strings.DoNotAskAgain">Don't ask me again</sys:String>
+    <sys:String x:Key="Strings.CreateProfileLink">Pin to desktop</sys:String>
+    <sys:String x:Key="Strings.ProfileLinkFormat">Windower ({0})</sys:String>
+    <sys:String x:Key="Strings.CopyProfile">Create copy</sys:String>
+    <sys:String x:Key="Strings.ProfileCopyNameFormat">{0} (Copy {1})</sys:String>
+    <sys:String x:Key="Strings.ClientNotFound">Windower could not locate Final Fantasy XI.</sys:String>
+    <sys:String x:Key="Strings.ClientNotFoundDescription">Windower requires Final Fantasy XI to be installed in order to function.</sys:String>
+    <sys:String x:Key="Strings.DirectPlayPrompt">DirectPlay is not installed</sys:String>
+    <sys:String x:Key="Strings.DirectPlayDescription">Final Fantasy XI requires DirectPlay to run. DirectPlay is an optional component of DirectX 8.1, and is not installed by default starting with Windows 8. Would you like us to install DirectPlay?</sys:String>
+    <sys:String x:Key="Strings.Install">Install</sys:String>
+    <sys:String x:Key="Strings.Exit">Exit</sys:String>
+    <sys:String x:Key="Strings.Crashed">Windower encountered a problem and crashed.</sys:String>
+    <sys:String x:Key="Strings.CrashReporterPreparing">Collecting details about the crash</sys:String>
+    <sys:String x:Key="Strings.CrashReporterCheckingReport">Checking if this issue has been reported already</sys:String>
+    <sys:String x:Key="Strings.CrashReporterSigningIn">Signing in</sys:String>
+    <sys:String x:Key="Strings.CrashReporterVerifying">Verifying your identity</sys:String>
+    <sys:String x:Key="Strings.CrashReporterCreatingGist">Creating a gist for this crash report</sys:String>
+    <sys:String x:Key="Strings.CrashReporterCloning">Preparing to upload the crash report</sys:String>
+    <sys:String x:Key="Strings.CrashReporterEncrypting">Encrypting crash report data</sys:String>
+    <sys:String x:Key="Strings.CrashReporterStaging">Preparing to upload the crash report</sys:String>
+    <sys:String x:Key="Strings.CrashReporterPackaging">Packaging the crash report</sys:String>
+    <sys:String x:Key="Strings.CrashReporterTransferring" xml:space="preserve">Uploading the crash report to GitHub&#xD;&#xA;(This may take a while...)</sys:String>
+    <sys:String x:Key="Strings.CrashReporterFetchingGistDetails">Getting gist details</sys:String>
+    <sys:String x:Key="Strings.CrashReporterCreatingIssue">Creating a new issue for this crash report</sys:String>
+    <sys:String x:Key="Strings.CrashReporterCreatingComment">Leaving a comment on the issue for this crash report</sys:String>
+    <sys:String x:Key="Strings.CrashReporterSubmitPrompt">Submit a crash report to the Windower dev team?</sys:String>
+    <sys:String x:Key="Strings.CrashReporterSubmitDisclaimerEncrypted" xml:space="preserve">A crash report has been generated. The Windower dev team can use this report to help fix the problem. This crash report includes information about the state of Windower when the problem occurred, and your operating system. The data collected will only be used to fix the problem, and will be encrypted before it is uploaded, so that it cannot be read by anyone else.&#xD;&#xA;&#xD;&#xA;You will need a GitHub account to submit this crash report. The report will be uploaded as a gist to your GitHub account, and attached to an issue.</sys:String>
+    <sys:String x:Key="Strings.CrashReporterSubmitDisclaimer" xml:space="preserve">A crash report has been generated. The Windower dev team can use this report to help fix the problem. This crash report includes information about the state of Windower when the problem occurred, and your operating system. The data collected will only be used to fix the problem.&#xD;&#xA;&#xD;&#xA;You will need a GitHub account to submit this crash report. The report will be uploaded as a gist to your GitHub account, and attached to an issue.</sys:String>
+    <sys:String x:Key="Strings.CrashReporterViewReport">View the contents of the crash report</sys:String>
+    <sys:String x:Key="Strings.CrashReporterViewLocalReport">View the local crash report files</sys:String>
+    <sys:String x:Key="Strings.CrashReporterViewRemoteReport">View the crash report</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportSubmitted">Crash report submitted</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportSubmittedDetails">The crash report has been successfully submitted to the Windower dev team.</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportExists">Crash already reported</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportExistsDetails">This crash has already been reported to the Windower dev team.</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportNotSubmitted">Crash report saved</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportNotSubmittedDetails">The crash report files have been saved to your hard drive and have not been submitted to the Windower dev team.</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportingDisabled">Crash reporting disabled</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportingDisabledDetails">Crash reporting has been disabled for this version of Windower. The crash report files have been saved to your hard drive.</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportingFailed">Failed to report crash</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportingFailedDetails">A problem occurred while submitting the crash report. The crash report files have been saved to your hard drive.</sys:String>
+    <sys:String x:Key="Strings.CrashReporterDeleteFiles">Delete crash report files</sys:String>
+</ResourceDictionary>

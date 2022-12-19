@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+  <settings-path>%WINDOWER%\files</settings-path>
+  <user-path>%WINDOWER%\user</user-path>
+  <temp-path>%WINDOWER%\files\temp</temp-path>
+</paths>

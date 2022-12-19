@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <ItemDefinitionGroup>
+    <Reference>
+      <Private>False</Private>
+    </Reference>
+  </ItemDefinitionGroup>
+  <PropertyGroup>
+    <ReleaseBuild Condition=" '$(ReleaseBuild)' == '' ">false</ReleaseBuild>
+    <ReleaseConstants Condition=" '$(ReleaseBuild)' == 'true' ">WINDOWER_RELEASE_BUILD</ReleaseConstants>
+    <ReleaseConstants Condition=" '$(ReleaseBuild)' != 'true' ">WINDOWER_TEST_BUILD</ReleaseConstants>
+    <Configuration Condition=" '$(Configuration)' == '' ">debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB818168-EA3A-4E45-9D28-0931F845D47E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Windower</RootNamespace>
+    <AssemblyName>windower</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)build\bin\debug\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\obj\launcher\debug\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)build\obj\launcher\debug\</BaseIntermediateOutputPath>
+    <DefineConstants>$(ReleaseConstants);DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors Condition="$(CI) == 'true'">true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)build\bin\release\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\obj\launcher\release\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)build\obj\launcher\release\</BaseIntermediateOutputPath>
+    <DefineConstants>$(ReleaseConstants);TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>true</Prefer32Bit>
+    <TreatWarningsAsErrors Condition="$(CI) == 'true'">true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>launcher.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>res\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Directory.Build.props" />
+    <None Include="launcher.manifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="src\Core\Updater.cs" />
+    <Compile Include="src\Core\UpdateStatus.cs" />
+    <Compile Include="src\Core\ExtensionMethods.cs" />
+    <Compile Include="src\CrashReporter.cs" />
+    <Compile Include="src\UpdateCleanupOptions.cs" />
+    <Compile Include="src\Paths.cs" />
+    <Compile Include="src\SafeCoTaskMemHandle.cs" />
+    <Compile Include="src\NativeMethods.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Boiler\IGame.cs" />
+    <Compile Include="src\Core\Dimension.cs" />
+    <Compile Include="src\Core\DimentionBuilder.cs" />
+    <Compile Include="src\Core\DisplayDevice.cs" />
+    <Compile Include="src\Core\DisplayInfo.cs" />
+    <Compile Include="src\Core\EnvironmentAnimation.cs" />
+    <Compile Include="src\Core\FontType.cs" />
+    <Compile Include="src\Core\LaunchStatus.cs" />
+    <Compile Include="src\Core\Point.cs" />
+    <Compile Include="src\Core\PointBuilder.cs" />
+    <Compile Include="src\Core\Profile.cs" />
+    <Compile Include="src\Core\ProfileBuilder.cs" />
+    <Compile Include="src\Core\ProfileManager.cs" />
+    <Compile Include="src\Core\ProgressDetail.cs" />
+    <Compile Include="src\Core\SafeDeviceContextHandle.cs" />
+    <Compile Include="src\Core\TextureCompression.cs" />
+    <Compile Include="src\GetArgsOptions.cs" />
+    <Compile Include="src\LaunchOptions.cs" />
+    <Compile Include="src\Maybe.cs" />
+    <Compile Include="src\PlayOnline\Region.cs" />
+    <Compile Include="src\ProfileOptions.cs" />
+    <Compile Include="src\RemoteCallableAttribute.cs" />
+    <Compile Include="src\Core\Launcher.cs" />
+    <Compile Include="src\Core\SettingsChannel.cs" />
+    <Compile Include="src\PlayOnline\ExtensionMethods.cs" />
+    <Compile Include="src\PlayOnline\ClientInfo.cs" />
+    <Compile Include="src\Program.cs" />
+    <Compile Include="src\Core\Injector.cs" />
+    <Compile Include="src\Core\NativeMethods.cs" />
+    <Compile Include="src\Core\SafeProcessMemoryHandle.cs" />
+    <Compile Include="src\Boiler\BinaryVdfReader.cs" />
+    <Compile Include="src\Boiler\NativeMethods.cs" />
+    <Compile Include="src\Boiler\NonSteamGame.cs" />
+    <Compile Include="src\Boiler\SafeWinEventHookHandle.cs" />
+    <Compile Include="src\Boiler\Steam.cs" />
+    <Compile Include="src\Boiler\SteamGame.cs" />
+    <Compile Include="src\Boiler\TextVdfReader.cs" />
+    <Compile Include="src\Boiler\VdfReader.cs" />
+    <Compile Include="src\Boiler\VdfValue.cs" />
+    <Compile Include="src\DeleteOptions.cs" />
+    <Compile Include="src\SaveOptions.cs" />
+    <Compile Include="src\CrashHandler.cs" />
+    <Compile Include="src\Shell.cs" />
+    <Compile Include="src\Core\WindowType.cs" />
+    <Compile Include="src\UI\AutoTransitionDirection.cs" />
+    <Compile Include="src\UI\BooleanEqualityConverter.cs" />
+    <Compile Include="src\UI\DelegateCommand.cs" />
+    <Compile Include="src\UI\DimensionConverter.cs" />
+    <Compile Include="src\UI\FocusBehavior.cs" />
+    <Compile Include="src\UI\INavigationService.cs" />
+    <Compile Include="src\UI\NativeMethods.cs" />
+    <Compile Include="src\UI\PasswordBinder.cs" />
+    <Compile Include="src\UI\RegionInstalledConverter.cs" />
+    <Compile Include="src\UI\ResourceStringConverter.cs" />
+    <Compile Include="src\UI\SafeIconHandle.cs" />
+    <Compile Include="src\UI\StockIcons.cs" />
+    <Compile Include="src\UI\TransitionControl.cs" />
+    <Compile Include="src\UI\UserInterface.cs" />
+    <Compile Include="src\UI\ViewFactory.cs" />
+    <Compile Include="src\UI\ViewModelBase.cs" />
+    <Compile Include="src\UI\Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\AboutViewModel.cs" />
+    <Compile Include="src\UI\Views\ClientNotFoundView.xaml.cs">
+      <DependentUpon>ClientNotFoundView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\ClientNotFoundViewModel.cs" />
+    <Compile Include="src\UI\Views\CrashReportDescriptionView.xaml.cs">
+      <DependentUpon>CrashReportDescriptionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\CrashReportDescriptionViewModel.cs" />
+    <Compile Include="src\UI\Views\CrashReportDetailsView.xaml.cs">
+      <DependentUpon>CrashReportDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\CrashReportDetailsViewModel.cs" />
+    <Compile Include="src\UI\Views\CrashReporterView.xaml.cs">
+      <DependentUpon>CrashReporterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\CrashReporterViewModel.cs" />
+    <Compile Include="src\UI\Views\CrashReportPromptView.xaml.cs">
+      <DependentUpon>CrashReportPromptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\CrashReportPromptViewModel.cs" />
+    <Compile Include="src\UI\Views\DirectPlayPromptView.xaml.cs">
+      <DependentUpon>DirectPlayPromptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\DirectPlayPromptViewModel.cs" />
+    <Compile Include="src\UI\Views\EditProfileView.xaml.cs">
+      <DependentUpon>EditProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\EditProfileViewModel.cs" />
+    <Compile Include="src\UI\Views\FixAccessControlPromptView.xaml.cs">
+      <DependentUpon>FixAccessControlPromptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\FixAccessControlPromptViewModel.cs" />
+    <Compile Include="src\UI\Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\MainViewModel.cs" />
+    <Compile Include="src\UI\Views\RootView.xaml.cs">
+      <DependentUpon>RootView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\RootViewModel.cs" />
+    <Compile Include="src\UI\Views\SelectProfileView.xaml.cs">
+      <DependentUpon>SelectProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\UI\Views\SelectProfileViewModel.cs" />
+    <Compile Include="src\UI\WindowerApplication.xaml.cs">
+      <DependentUpon>WindowerApplication.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="res\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="res\Strings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="res\Branding.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\ClientNotFoundView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\CrashReportDescriptionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\CrashReportDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\CrashReporterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\CrashReportPromptView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\DirectPlayPromptView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\EditProfileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\FixAccessControlPromptView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\RootView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\Views\SelectProfileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\UI\WindowerApplication.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser">
+      <Version>2.9.1</Version>
+    </PackageReference>
+    <PackageReference Include="Costura.Fody">
+      <Version>5.7.0</Version>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Extended.Wpf.Toolkit">
+      <Version>4.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="StringInterpolationBridgeStrong">
+      <Version>0.9.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Collections.Immutable">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="CopyFileResources" AfterTargets="CoreCompile" Inputs="@(FileResource)" Outputs="@(FileResource->'$(OutDir)%(filename)%(extension)')">
+    <Copy SourceFiles="@(FileResource)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+    <ItemGroup>
+      <FileWrites Include="@(FileResource->'$(OutDir)%(filename)%(extension)')" />
+    </ItemGroup>
+  </Target>
+</Project>

@@ -1,0 +1,8 @@
+{
+  "name": "windower",
+  "version-string": "5.0",
+  "dependencies": [
+    "ms-gsl",
+    "pugixml"
+  ]
+}

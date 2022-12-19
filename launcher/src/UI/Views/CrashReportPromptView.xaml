@@ -1,0 +1,64 @@
+<!--
+Copyright © Windower Dev Team
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files
+(the "Software"),to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<Page x:Class="Windower.UI.Views.CrashReportPromptView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d" d:DesignWidth="368" d:DesignHeight="560"
+      Style="{StaticResource Page}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Control Style="{StaticResource IconError}" Foreground="{StaticResource WindowerBranding}" MinHeight="30" Margin="32,48,32,0" VerticalAlignment="Top" Height="64"/>
+        <TextBlock Margin="32,12,32,0" TextWrapping="Wrap" LineHeight="28" Grid.Row="1" FontWeight="Light" Text="{StaticResource Strings.CrashReporterSubmitPrompt}" FontSize="24" />
+        <TextBlock Margin="32,12,32,0" TextWrapping="Wrap" LineHeight="20" Grid.Row="2">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Setter Property="Text" Value="{StaticResource Strings.CrashReporterSubmitDisclaimer}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding EncryptionEnabled}" Value="True">
+                            <Setter Property="Text" Value="{StaticResource Strings.CrashReporterSubmitDisclaimerEncrypted}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <TextBlock Margin="32,0" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Row="4"><Hyperlink Command="{Binding ShowReport}"><Run Text="{StaticResource Strings.CrashReporterViewReport}"/></Hyperlink></TextBlock>
+        <Grid Margin="32,12" Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="{StaticResource Strings.Yes}" Margin="0,0,6,0" Command="{Binding Submit}" d:LayoutOverrides="Height" IsDefault="True"/>
+            <Button Content="{StaticResource Strings.No}" Margin="6,0,0,0" Command="{Binding Close}" d:LayoutOverrides="Height" Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</Page>

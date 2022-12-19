@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 14.0.22310.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution files", "solution files", "{806C3902-7DA6-43AC-810A-95FB57B66FAA}"
+	ProjectSection(SolutionItems) = preProject
+		.clang-format = .clang-format
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		export-illustrator.ps1 = export-illustrator.ps1
+		fenestra.ruleset = fenestra.ruleset
+		LICENSE.MD = LICENSE.MD
+		paths.xml = paths.xml
+		README.MD = README.MD
+		vcpkg.json = vcpkg.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "launcher", "launcher\launcher.csproj", "{DB818168-EA3A-4E45-9D28-0931F845D47E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0} = {A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "core\core.vcxproj", "{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3FB96E59-838D-43BD-B72B-225C6D6526C0} = {3FB96E59-838D-43BD-B72B-225C6D6526C0}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "luajit", "extern\luajit\luajit.vcxproj", "{3FB96E59-838D-43BD-B72B-225C6D6526C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		debug|Any CPU = debug|Any CPU
+		debug|x86 = debug|x86
+		release|Any CPU = release|Any CPU
+		release|x86 = release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB818168-EA3A-4E45-9D28-0931F845D47E}.debug|Any CPU.ActiveCfg = debug|Any CPU
+		{DB818168-EA3A-4E45-9D28-0931F845D47E}.debug|Any CPU.Build.0 = debug|Any CPU
+		{DB818168-EA3A-4E45-9D28-0931F845D47E}.debug|x86.ActiveCfg = debug|Any CPU
+		{DB818168-EA3A-4E45-9D28-0931F845D47E}.debug|x86.Build.0 = debug|Any CPU
+		{DB818168-EA3A-4E45-9D28-0931F845D47E}.release|Any CPU.ActiveCfg = release|Any CPU
+		{DB818168-EA3A-4E45-9D28-0931F845D47E}.release|Any CPU.Build.0 = release|Any CPU
+		{DB818168-EA3A-4E45-9D28-0931F845D47E}.release|x86.ActiveCfg = release|Any CPU
+		{DB818168-EA3A-4E45-9D28-0931F845D47E}.release|x86.Build.0 = release|Any CPU
+		{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}.debug|Any CPU.ActiveCfg = debug|Win32
+		{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}.debug|Any CPU.Build.0 = debug|Win32
+		{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}.debug|x86.ActiveCfg = debug|Win32
+		{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}.debug|x86.Build.0 = debug|Win32
+		{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}.release|Any CPU.ActiveCfg = release|Win32
+		{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}.release|Any CPU.Build.0 = release|Win32
+		{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}.release|x86.ActiveCfg = release|Win32
+		{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}.release|x86.Build.0 = release|Win32
+		{3FB96E59-838D-43BD-B72B-225C6D6526C0}.debug|Any CPU.ActiveCfg = debug|Win32
+		{3FB96E59-838D-43BD-B72B-225C6D6526C0}.debug|Any CPU.Build.0 = debug|Win32
+		{3FB96E59-838D-43BD-B72B-225C6D6526C0}.debug|x86.ActiveCfg = debug|Win32
+		{3FB96E59-838D-43BD-B72B-225C6D6526C0}.debug|x86.Build.0 = debug|Win32
+		{3FB96E59-838D-43BD-B72B-225C6D6526C0}.release|Any CPU.ActiveCfg = release|Win32
+		{3FB96E59-838D-43BD-B72B-225C6D6526C0}.release|Any CPU.Build.0 = release|Win32
+		{3FB96E59-838D-43BD-B72B-225C6D6526C0}.release|x86.ActiveCfg = release|Win32
+		{3FB96E59-838D-43BD-B72B-225C6D6526C0}.release|x86.Build.0 = release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09F5EBC6-27A1-4437-9D25-9B9CF47EE823}
+	EndGlobalSection
+EndGlobal

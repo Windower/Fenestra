@@ -1,0 +1,6 @@
+[submodule "extern/vcpkg"]
+	path = extern/vcpkg
+	url = https://github.com/Microsoft/vcpkg.git
+[submodule "extern/luajit/repo"]
+	path = extern/luajit/repo
+	url = https://luajit.org/git/luajit.git

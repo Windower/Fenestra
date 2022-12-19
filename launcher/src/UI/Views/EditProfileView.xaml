@@ -1,0 +1,564 @@
+<!--
+Copyright © Windower Dev Team
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files
+(the "Software"),to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<Page x:Class="Windower.UI.Views.EditProfileView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:com="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
+      xmlns:ui="clr-namespace:Windower.UI"
+      xmlns:core="clr-namespace:Windower.Core"
+      xmlns:pol="clr-namespace:Windower.PlayOnline"
+      xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d" d:DesignWidth="368" d:DesignHeight="560"
+      Style="{StaticResource Page}"
+      ui:TransitionControl.ExitTransition="SlideRight"
+      ui:FocusBehavior.FocusFirst="True">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="ProfileName" Text="{Binding Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Background="White" BorderThickness="0" FontSize="46" Padding="0" Margin="12,0" Height="64" FontWeight="Light"/>
+        <TabControl Margin="0" Grid.Row="1">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Control Style="{StaticResource IconSettingsGeneral}" Height="15" HorizontalAlignment="Center" Width="15"/>
+                        <TextBlock Text="{StaticResource Strings.GeneralSettings}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="White" RenderOptions.ClearTypeHint="Enabled">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Content="{StaticResource Strings.WindowType}" Margin="12,12,0,0"/>
+                    <Grid Margin="11,4,0,4" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <RadioButton Content="{StaticResource Strings.ModeBorderless}" IsChecked="{Binding WindowType, ConverterParameter={x:Static core:WindowType.Borderless}, Converter={StaticResource BooleanEqualityConverter}}" Margin="0"/>
+                        <RadioButton Content="{StaticResource Strings.ModeWindow}" IsChecked="{Binding WindowType, ConverterParameter={x:Static core:WindowType.Window}, Converter={StaticResource BooleanEqualityConverter}}" Grid.Row="1" Margin="0,4,0,0"/>
+                        <RadioButton Content="{StaticResource Strings.ModeFullScreen}" IsChecked="{Binding WindowType, ConverterParameter={x:Static core:WindowType.FullScreen}, Converter={StaticResource BooleanEqualityConverter}}" Grid.Row="2" Margin="0,4,0,0"/>
+                        <Grid Margin="0,4,0,0" Grid.Row="3" Width="170">
+                            <Grid.Style>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="Opacity" Value="0"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding WindowType}" Value="{x:Static core:WindowType.FullScreen}">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard Storyboard="{StaticResource FadeIn}"/>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard Storyboard="{StaticResource FadeOut}"/>
+                                            </DataTrigger.ExitActions>
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Control Style="{StaticResource IconWarning}"  Foreground="{StaticResource BaseWarning}" HorizontalAlignment="Left" Height="15" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Width="15" d:LayoutOverrides="VerticalAlignment" Margin="2.5,0,0,0"/>
+                            <TextBlock Margin="24,0,0,0" TextWrapping="Wrap" Text="{StaticResource Strings.FullScreenWarning}" Foreground="#FFFFB900" VerticalAlignment="Top" LineHeight="18" FontSize="12"/>
+                        </Grid>
+                    </Grid>
+                    <Label Content="{StaticResource Strings.Region}" Margin="0,12,12,0" Grid.Column="2"/>
+                    <Grid Margin="0,4,11,0" Grid.Row="1" Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <RadioButton Content="{StaticResource Strings.RegionAuto}" IsChecked="{Binding Region, ConverterParameter={x:Null}, Converter={StaticResource BooleanEqualityConverter}}" Margin="0"/>
+                        <RadioButton Content="{StaticResource Strings.RegionNA}" IsChecked="{Binding Region, ConverterParameter={x:Static pol:Region.NA}, Converter={StaticResource BooleanEqualityConverter}}" Grid.Row="1" Margin="0,4,0,0">
+                            <RadioButton.Style>
+                                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ConverterParameter={x:Static pol:Region.NA}, Converter={StaticResource RegionInstalledConverter}, Mode=OneTime}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <Trigger Property="com:DesignerProperties.IsInDesignMode" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>
+                        </RadioButton>
+                        <RadioButton Content="{StaticResource Strings.RegionJP}" IsChecked="{Binding Region, ConverterParameter={x:Static pol:Region.JP}, Converter={StaticResource BooleanEqualityConverter}}" Grid.Row="2" Margin="0,4,0,0">
+                            <RadioButton.Style>
+                                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ConverterParameter={x:Static pol:Region.JP}, Converter={StaticResource RegionInstalledConverter}, Mode=OneTime}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <Trigger Property="com:DesignerProperties.IsInDesignMode" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>
+                        </RadioButton>
+                        <RadioButton Content="{StaticResource Strings.RegionEU}" IsChecked="{Binding Region, ConverterParameter={x:Static pol:Region.EU}, Converter={StaticResource BooleanEqualityConverter}}" Grid.Row="4" Margin="0,4,0,0">
+                            <RadioButton.Style>
+                                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ConverterParameter={x:Static pol:Region.EU}, Converter={StaticResource RegionInstalledConverter}, Mode=OneTime}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <Trigger Property="com:DesignerProperties.IsInDesignMode" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>
+                        </RadioButton>
+                    </Grid>
+                    <Grid Margin="12,0,12,12" Grid.Row="2" Grid.ColumnSpan="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.Style>
+                            <Style TargetType="{x:Type Grid}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DisplayCount}" Value="1">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Label Content="{StaticResource Strings.Display}"/>
+                        <ComboBox Margin="0,4,0,0" ItemsSource="{Binding Displays}" SelectedItem="{Binding SelectedDisplay}" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Text" Value="{Binding FriendlyName}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding DeviceName}" Value="{x:Null}">
+                                                        <Setter Property="Text" Value="{Binding FriendlyName, StringFormat={StaticResource Strings.PrimaryDisplay}}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                    <CheckBox Content="{StaticResource Strings.AdjustResolution}" Margin="12,0" Grid.Row="3" IsChecked="{Binding UseCustomResolution}" IsEnabled="{Binding CanUseCustomResolution}" Style="{StaticResource YesNoToggleSwitch}" Grid.ColumnSpan="3"/>
+                    <Grid Margin="12,4,12,0" Grid.Row="4" Grid.ColumnSpan="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="4"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Style>
+                            <Style TargetType="{x:Type Grid}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding WindowType}" Value="{x:Static core:WindowType.FullScreen}">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard Storyboard="{StaticResource FadeOut}"/>
+                                        </DataTrigger.EnterActions>
+                                        <DataTrigger.ExitActions>
+                                            <BeginStoryboard Storyboard="{StaticResource FadeIn}"/>
+                                        </DataTrigger.ExitActions>
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Label Content="{StaticResource Strings.Width}" IsEnabled="{Binding UseCustomResolution}"/>
+                        <xtk:IntegerUpDown Margin="0,4,0,0" Text="{Binding CustomResolutionWidth, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding UseCustomResolution}" Minimum="{Binding ResolutionMin.Width}" Maximum="{Binding ResolutionMax.Width}" Grid.Row="1" Height="32"/>
+                        <Label Content="{StaticResource Strings.Height}" IsEnabled="{Binding UseCustomResolution}" Grid.Column="2"/>
+                        <xtk:IntegerUpDown Margin="0,4,0,0" Text="{Binding CustomResolutionHeight, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding UseCustomResolution}" Minimum="{Binding ResolutionMin.Height}" Maximum="{Binding ResolutionMax.Height}" Grid.Column="2" Grid.Row="1" Height="32"/>
+                    </Grid>
+                    <Grid Margin="12,4,12,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.Style>
+                            <Style TargetType="{x:Type Grid}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding WindowType}" Value="{x:Static core:WindowType.FullScreen}">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard Storyboard="{StaticResource FadeIn}"/>
+                                        </DataTrigger.EnterActions>
+                                        <DataTrigger.ExitActions>
+                                            <BeginStoryboard Storyboard="{StaticResource FadeOut}"/>
+                                        </DataTrigger.ExitActions>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Label Content="{StaticResource Strings.Resolution}" IsEnabled="{Binding UseCustomResolution}" Margin="0" Height="20"/>
+                        <ComboBox Margin="0,4,0,0" ItemsSource="{Binding SelectedDisplay.AvailableResolutions}" IsEnabled="{Binding UseCustomResolution}" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ComboBox.SelectedItem>
+                                <MultiBinding Converter="{StaticResource DimensionConverter}">
+                                    <Binding Path="CustomResolutionWidth"/>
+                                    <Binding Path="CustomResolutionHeight"/>
+                                </MultiBinding>
+                            </ComboBox.SelectedItem>
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{StaticResource Strings.ResolutionFormat}">
+                                                <Binding Path="Width" Mode="OneTime"/>
+                                                <Binding Path="Height" Mode="OneTime"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                    <CheckBox Content="{StaticResource Strings.UseSteam}" Margin="12,12,0,0" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource YesNoToggleSwitch}" IsChecked="{Binding UseSteam}" IsEnabled="{Binding IsSteamAvailable}" Grid.ColumnSpan="3" Width="344"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Control Style="{StaticResource IconSettingsGraphics}" Height="15" HorizontalAlignment="Center" Width="15"/>
+                        <TextBlock Text="{StaticResource Strings.GraphicsSettings}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="White" RenderOptions.ClearTypeHint="Enabled">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="56"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="56"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="{StaticResource Strings.SupersampleAntiAliasing}" Margin="12,12,12,0" d:LayoutOverrides="Height" Grid.ColumnSpan="5"/>
+                    <Slider Margin="0,4,0,0" Ticks="0.25 0.5 1 2 4" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True" TickPlacement="Both" Maximum="{Binding SamplesPerPixelMax}" Minimum="{Binding SamplesPerPixelMin}" SmallChange="0.25" Value="{Binding SamplesPerPixel}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
+                    <Label Content="{Binding SamplesPerPixelMin}" ContentStringFormat="{StaticResource Strings.SupersampleAntiAliasingFormat}" Margin="12,4,4,0" Grid.Row="1" d:LayoutOverrides="Height" HorizontalContentAlignment="Right" MinWidth="40"/>
+                    <Label Content="{Binding SamplesPerPixelMax}" ContentStringFormat="{StaticResource Strings.SupersampleAntiAliasingFormat}" Grid.Column="4" Margin="4,4,12,0" Grid.Row="1" d:LayoutOverrides="Height" MinWidth="40"/>
+                    <Label Content="{Binding SamplesPerPixel}" ContentStringFormat="{StaticResource Strings.SupersampleAntiAliasingFormat}" Grid.Column="1" Margin="0,4,0,0" Grid.Row="2" d:LayoutOverrides="Width" HorizontalContentAlignment="Center" Grid.ColumnSpan="3"/>
+                    <Label Content="{StaticResource Strings.Mipmapping}" Margin="12,12,12,0" Grid.ColumnSpan="5" d:LayoutOverrides="Height" Grid.Row="3"/>
+                    <Slider Margin="0,4,0,0" TickFrequency="1" IsMoveToPointEnabled="True" TickPlacement="Both" Maximum="{Binding MipmappingMax}" Minimum="{Binding MipmappingMin}" SmallChange="0.25" Value="{Binding Mipmapping}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsSnapToTickEnabled="True"/>
+                    <Label Content="{Binding MipmappingMin, Converter={StaticResource ResourceStringConverter}, ConverterParameter=Mipmapping{0}}" Margin="12,4,4,0" Grid.Row="4" HorizontalContentAlignment="Right" d:LayoutOverrides="Height" MinWidth="40"/>
+                    <Label Content="{Binding MipmappingMax, Converter={StaticResource ResourceStringConverter}, ConverterParameter=Mipmapping{0}}" Grid.Column="4" Margin="4,4,12,0" Grid.Row="4" d:LayoutOverrides="Height" MinWidth="40"/>
+                    <Label Content="{Binding Mipmapping, Converter={StaticResource ResourceStringConverter}, ConverterParameter=Mipmapping{0}}" Grid.Column="1" Margin="0,4,0,0" Grid.Row="5" HorizontalContentAlignment="Center" d:LayoutOverrides="Width" Grid.ColumnSpan="3"/>
+                    <CheckBox Content="{StaticResource Strings.BumpMapping}" Margin="11,12,0,0" Grid.ColumnSpan="2" Style="{StaticResource ToggleSwitch}" Grid.Row="6" IsChecked="{Binding BumpMapping}" d:LayoutOverrides="Height"/>
+                    <CheckBox Content="{StaticResource Strings.MapCompression}" Margin="2,12,11,0" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="6" IsChecked="{Binding MapCompression}" d:LayoutOverrides="Height" Style="{StaticResource YesNoToggleSwitch}"/>
+                    <Label Content="{StaticResource Strings.TextureCompression}" Margin="12,12,0,0" Grid.ColumnSpan="2" Grid.Row="7"/>
+                    <Grid Margin="11,4,0,0" Grid.Row="8" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <RadioButton Content="{StaticResource Strings.TextureCompressionUncompressed}" IsChecked="{Binding TextureCompression, ConverterParameter={x:Static core:TextureCompression.Uncompressed}, Converter={StaticResource BooleanEqualityConverter}}" Margin="0"/>
+                        <RadioButton Content="{StaticResource Strings.TextureCompressionLow}" IsChecked="{Binding TextureCompression, ConverterParameter={x:Static core:TextureCompression.Low}, Converter={StaticResource BooleanEqualityConverter}}" Grid.Row="1" Margin="0,4,0,0"/>
+                        <RadioButton Content="{StaticResource Strings.TextureCompressionHigh}" IsChecked="{Binding TextureCompression, ConverterParameter={x:Static core:TextureCompression.High}, Converter={StaticResource BooleanEqualityConverter}}" Grid.Row="2" Margin="0,4,0,0"/>
+                    </Grid>
+                    <Label Content="{StaticResource Strings.EnvironmentAnimation}" Margin="0,12,12,0" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="3"/>
+                    <Grid Margin="0,4,11,0" Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <RadioButton Content="{StaticResource Strings.EnvironmentAnimationSmooth}" IsChecked="{Binding EnvironmentAnimation, ConverterParameter={x:Static core:EnvironmentAnimation.Smooth}, Converter={StaticResource BooleanEqualityConverter}}" Margin="0"/>
+                        <RadioButton Content="{StaticResource Strings.EnvironmentAnimationNormal}" IsChecked="{Binding EnvironmentAnimation, ConverterParameter={x:Static core:EnvironmentAnimation.Normal}, Converter={StaticResource BooleanEqualityConverter}}" Grid.Row="1" Margin="0,4,0,0"/>
+                        <RadioButton Content="{StaticResource Strings.EnvironmentAnimationOff}" IsChecked="{Binding EnvironmentAnimation, ConverterParameter={x:Static core:EnvironmentAnimation.Off}, Converter={StaticResource BooleanEqualityConverter}}" Margin="0,4,0,0" Grid.Row="2"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Control Style="{StaticResource IconSettingsMisc}" Height="15" HorizontalAlignment="Center" Width="15"/>
+                        <TextBlock Text="{StaticResource Strings.MiscellaneousSettings}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="White" RenderOptions.ClearTypeHint="Enabled">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Content="{StaticResource Strings.AdjustUIScale}" Margin="12,12,12,0" IsChecked="{Binding UseCustomUIScale}" Style="{StaticResource YesNoToggleSwitch}" IsEnabled="{Binding CanUseCustomUIScale}" Grid.ColumnSpan="5"/>
+                    <Slider Margin="0,4,0,0" TickPlacement="Both" Minimum="{Binding UIScaleMin, FallbackValue=1}" Maximum="{Binding UIScaleMax, FallbackValue=2}" TickFrequency="0.1" LargeChange="0.25" Value="{Binding UIScale}" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True" AutoToolTipPrecision="2" SmallChange="0.05" IsEnabled="{Binding UseCustomUIScale}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3"/>
+                    <Label Content="{Binding UIScaleMin}" ContentStringFormat="{StaticResource Strings.UIScaleFormat}" Margin="12,4,4,4" HorizontalContentAlignment="Right" IsEnabled="{Binding UseCustomUIScale}" MinWidth="40" Grid.Row="1"/>
+                    <Label Content="{Binding UIScaleMax}" ContentStringFormat="{StaticResource Strings.UIScaleFormat}" Margin="4,4,12,4" IsEnabled="{Binding UseCustomUIScale}" MinWidth="40" Grid.Column="4" Grid.Row="1"/>
+                    <Label Content="{Binding UIScale}" ContentStringFormat="{StaticResource Strings.UIScaleFormat}" d:LayoutOverrides="Width, LeftMargin, RightMargin, TopMargin, BottomMargin" HorizontalContentAlignment="Center" Margin="0,4,0,0" IsEnabled="{Binding UseCustomUIScale}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3"/>
+                    <Label Grid.ColumnSpan="5" Content="{StaticResource Strings.MaxSounds}" Margin="12,12,12,0" Grid.Row="4" VerticalAlignment="Top"/>
+                    <Slider Margin="0,4,0,0" TickPlacement="Both" LargeChange="5" Value="{Binding MaxSounds}" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True" AutoToolTipPrecision="2" SmallChange="1" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Minimum="{Binding MaxSoundsMin, FallbackValue=0}" Maximum="{Binding MaxSoundsMax, FallbackValue=32}"/>
+                    <Label Margin="12,4,4,4" HorizontalContentAlignment="Right" MinWidth="40" Grid.Row="5" Content="{StaticResource Strings.Off}"/>
+                    <Label Margin="4,4,12,4" MinWidth="40" Grid.Column="4" Grid.Row="5" Content="{Binding MaxSoundsMax}" ContentStringFormat="{StaticResource Strings.MaxSoundsFormat}"/>
+                    <Label HorizontalContentAlignment="Center" Margin="0,4,0,0" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" d:LayoutOverrides="Width, LeftMargin, RightMargin, TopMargin, BottomMargin" Content="{Binding MaxSounds}" ContentStringFormat="{StaticResource Strings.MaxSoundsFormat}"/>
+                    <CheckBox Grid.ColumnSpan="5" Content="{StaticResource Strings.PlaySoundWhenUnfocused}" Margin="12,4,12,0" Grid.Row="7" IsChecked="{Binding PlaySoundWhenUnfocused}">
+                        <CheckBox.Style>
+                            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource YesNoToggleSwitch}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding WindowType}" Value="{x:Static core:WindowType.FullScreen}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </CheckBox.Style>
+                    </CheckBox>
+                    <Label Content="{StaticResource Strings.FontType}" Margin="12,12,0,0" d:LayoutOverrides="Width, LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.Row="8" Grid.ColumnSpan="2"/>
+                    <RadioButton Content="{StaticResource Strings.FontTypeCompressed}" Margin="11,4,0,0" Grid.Row="9" Grid.ColumnSpan="2" IsChecked="{Binding FontType, ConverterParameter={x:Static core:FontType.Compressed}, Converter={StaticResource BooleanEqualityConverter}}"/>
+                    <RadioButton Content="{StaticResource Strings.FontTypeUncompressed}" Margin="11,4,0,0" Grid.Row="10" Grid.ColumnSpan="2" IsChecked="{Binding FontType, ConverterParameter={x:Static core:FontType.Uncompressed}, Converter={StaticResource BooleanEqualityConverter}}"/>
+                    <RadioButton Content="{StaticResource Strings.FontTypeHighQuality}" Margin="11,4,0,0" Grid.Row="11" VerticalAlignment="Top" Grid.ColumnSpan="2" IsChecked="{Binding FontType, ConverterParameter={x:Static core:FontType.HighQuality}, Converter={StaticResource BooleanEqualityConverter}}" Height="20"/>
+                    <CheckBox Grid.ColumnSpan="2" Content="Play opening movie" Grid.Column="3" Margin="0,12,12,0" Grid.Row="8" Grid.RowSpan="2" Style="{StaticResource YesNoToggleSwitch}" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" IsChecked="{Binding PlayIntro}"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Control Style="{StaticResource IconSettingsAdvanced}" Height="15" HorizontalAlignment="Center" Width="15"/>
+                        <TextBlock Text="{StaticResource Strings.AdvancedSettings}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer>
+                    <Grid Background="White" RenderOptions.ClearTypeHint="Enabled">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="56"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="4"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="56"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Margin="12,12,12,0" Grid.ColumnSpan="5">
+                            <Grid.Style>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding WindowType}" Value="{x:Static core:WindowType.FullScreen}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="4"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <CheckBox Content="{StaticResource Strings.AdjustPosition}" Margin="0" Style="{StaticResource YesNoToggleSwitch}" IsChecked="{Binding UseCustomPosition}" Grid.ColumnSpan="3"/>
+                            <Label Content="{StaticResource Strings.Horizontal}" IsEnabled="{Binding UseCustomPosition}" Height="20" VerticalAlignment="Top" Grid.Row="1" Margin="0,4,0,0"/>
+                            <xtk:IntegerUpDown Margin="0,4,0,0" Text="{Binding CustomPositionX, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding UseCustomPosition}" Height="32" Grid.Row="2"/>
+                            <Label Content="{StaticResource Strings.Vertical}" IsEnabled="{Binding UseCustomPosition}" Grid.Column="2" Height="20" VerticalAlignment="Top" Grid.Row="1" Margin="0,4,0,0"/>
+                            <xtk:IntegerUpDown Margin="0,4,0,0" Text="{Binding CustomPositionY, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding UseCustomPosition}" Grid.Column="2" Height="32" Grid.Row="2"/>
+                        </Grid>
+                        <CheckBox Content="{StaticResource Strings.AdjustGamma}" Margin="12,12,12,0" Grid.ColumnSpan="5" Style="{StaticResource YesNoToggleSwitch}" IsChecked="{Binding UseCustomGamma}" Grid.Row="1"/>
+                        <Slider Margin="0,4,0,0" IsMoveToPointEnabled="True" TickPlacement="Both" Maximum="{Binding GammaMax}" SmallChange="0.05" Value="{Binding Gamma}" Grid.Row="2" Grid.Column="1" LargeChange="0.1" Minimum="{Binding GammaMin}" TickFrequency="0.5" IsEnabled="{Binding UseCustomGamma}" Grid.ColumnSpan="3"/>
+                        <Label Content="{Binding GammaMin}" ContentStringFormat="{StaticResource Strings.GammaFormat}" Margin="0,0,4,0" Grid.Row="2" HorizontalContentAlignment="Right" MinWidth="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="40" IsEnabled="{Binding UseCustomGamma}" Height="20"/>
+                        <Label Content="{Binding GammaMax}" ContentStringFormat="{StaticResource Strings.GammaFormat}" Grid.Column="4" Margin="0,0,12,0" Grid.Row="2" MinWidth="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="40" IsEnabled="{Binding UseCustomGamma}" Height="20"/>
+                        <Label Content="{Binding Gamma}" ContentStringFormat="{StaticResource Strings.GammaFormat}" Grid.Column="1" Margin="0,4,0,0" Grid.Row="3" HorizontalContentAlignment="Center" IsEnabled="{Binding UseCustomGamma}" Grid.ColumnSpan="3"/>
+                        <CheckBox Content="{StaticResource Strings.DriverStability}" Grid.ColumnSpan="2" Grid.Row="4" Style="{StaticResource YesNoToggleSwitch}" Margin="12,12,0,0" IsChecked="{Binding DriverStability}"/>
+                        <CheckBox Content="{StaticResource Strings.Debug}" Grid.ColumnSpan="2" Grid.Row="4" Style="{StaticResource ToggleSwitch}" Margin="0,12,12,0" Grid.Column="3" IsChecked="{Binding Debug}"/>
+                        <CheckBox Content="{StaticResource Strings.ChangeSettingsPath}" Grid.ColumnSpan="5" Grid.Row="5" Style="{StaticResource YesNoToggleSwitch}" Margin="12,24,12,0" IsChecked="{Binding CustomSettingsPath}"/>
+                        <Grid Grid.Row="6" Grid.ColumnSpan="5" Margin="12,4,12,0" IsEnabled="{Binding CustomSettingsPath}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="4"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding SettingsPath}"/>
+                            <Button Content="{StaticResource Strings.Browse}" Grid.Column="2" Command="{Binding BrowseSettingsPath}" CommandParameter="{StaticResource Strings.SelectSettingsPath}"/>
+                        </Grid>
+                        <CheckBox Content="{StaticResource Strings.ChangeUserPath}" Grid.ColumnSpan="5" Grid.Row="7" Style="{StaticResource YesNoToggleSwitch}" Margin="12,12,12,0" IsChecked="{Binding CustomUserPath}"/>
+                        <Grid Grid.Row="8" Grid.ColumnSpan="5" Margin="12,4,12,0" IsEnabled="{Binding CustomUserPath}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="4"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding UserPath}"/>
+                            <Button Content="{StaticResource Strings.Browse}" Grid.Column="2" Command="{Binding BrowseUserPath}" CommandParameter="{StaticResource Strings.SelectUserPath}"/>
+                        </Grid>
+                        <CheckBox Content="{StaticResource Strings.ChangeTempPath}" Grid.ColumnSpan="5" Grid.Row="9" Style="{StaticResource YesNoToggleSwitch}" Margin="12,12,12,0" IsChecked="{Binding CustomTempPath}"/>
+                        <Grid Grid.Row="10" Grid.ColumnSpan="5" Margin="12,4,12,2" IsEnabled="{Binding CustomTempPath}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="4"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding TempPath}"/>
+                            <Button Content="{StaticResource Strings.Browse}" Grid.Column="2" Command="{Binding BrowseTempPath}" CommandParameter="{StaticResource Strings.SelectTempPath}"/>
+                        </Grid>
+                        <Grid Grid.ColumnSpan="5" Margin="12,22,12,0" Grid.Row="11">
+                            <Grid.Style>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsElevationRequired}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="4"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Control Style="{StaticResource IconInfo}"  Foreground="{StaticResource BaseInfo}" HorizontalAlignment="Left" Height="20" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Width="20" d:LayoutOverrides="VerticalAlignment"/>
+                            <TextBlock Margin="24,0,0,0" FontSize="15" TextWrapping="Wrap" LineHeight="18" Grid.ColumnSpan="3" Text="{StaticResource Strings.ElevationRequired}" Foreground="Black"/>
+                            <Button Margin="0,4,0,0" Grid.Row="1">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Source="{x:Static ui:StockIcons.Shield}" Width="16" Height="16" Margin="0,0,4,0"/>
+                                                    <TextBlock Text="{StaticResource Strings.AdjustAccessControl}" Grid.Column="1"/>
+                                                </Grid>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsAdministrator}" Value="True">
+                                                <Setter Property="Content" Value="{StaticResource Strings.AdjustAccessControl}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <Grid Margin="12" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="4"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="{StaticResource Strings.Save}" Command="{Binding Save}" VerticalAlignment="Top" Height="32" IsDefault="True">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding EditCancellable}" Value="False">
+                                <Setter Property="Grid.ColumnSpan" Value="3"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding (Validation.HasError), ElementName=ProfileName}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="{StaticResource Strings.Cancel}" Margin="0" Command="{Binding Cancel}" VerticalAlignment="Top" Grid.Column="2" Height="32" IsCancel="True">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding EditCancellable}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

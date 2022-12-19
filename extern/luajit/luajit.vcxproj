@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|Win32">
+      <Configuration>debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|Win32">
+      <Configuration>release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{3FB96E59-838D-43BD-B72B-225C6D6526C0}</ProjectGuid>
+    <RootNamespace>luajit</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UsedebugLibraries>true</UsedebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UsedebugLibraries>false</UsedebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <OutDir>$(SolutionDir)build\lib\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\obj\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <OutDir>$(SolutionDir)build\lib\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\obj\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <UsingTask TaskName="RunLuaJITBuild" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <Root ParameterType="System.String" Required="true" />
+      <CompileOptions ParameterType="System.String" />
+      <LinkOptions ParameterType="System.String" />
+      <Arguments ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System.Text.RegularExpressions"/>
+      <Code Type="Fragment" Language="cs">
+        var compilePattern = new Regex(@"^@set LJCOMPILE=cl\b");
+        var linkPattern = new Regex(@"^@set LJLINK=link\b");
+        var removePattern = new Regex(@"\B(?:/MD)\b\s*");
+
+        var path = Path.Combine(Root, "msvcbuild.bat");
+        File.WriteAllLines(path, File.ReadAllLines(path).Select(line =&gt;
+        {
+            line = removePattern.Replace(line, "");
+            
+            if (!string.IsNullOrWhiteSpace(CompileOptions) &amp;&amp;
+                compilePattern.IsMatch(line))
+            {
+              line += " " + CompileOptions;
+            }
+
+            if (!string.IsNullOrWhiteSpace(LinkOptions) &amp;&amp;
+                linkPattern.IsMatch(line))
+            {
+              line += " " + LinkOptions;
+            }
+
+            return line;
+        }).ToArray());
+
+        var process = new System.Diagnostics.Process();
+        process.StartInfo.WorkingDirectory = Root;
+        process.StartInfo.FileName = "cmd.exe";
+        process.StartInfo.Arguments = "/C prompt $_&amp;\"" + Path.Combine(Root, "msvcbuild.bat") + "\" " + Arguments;
+        process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.RedirectStandardOutput = true;
+
+        process.Start();
+        while (!process.StandardOutput.EndOfStream)
+        {
+            var line = process.StandardOutput.ReadLine();
+            if (!string.IsNullOrWhiteSpace(line))
+            {
+              Log.LogMessage(MessageImportance.High, line);
+            }
+        }
+      </Code>
+    </Task>
+  </UsingTask>
+  <Target Name="BeforeClean">
+    <Delete Files="$(OutDir)lua51.lib;$(OutDir)luajit.exe" />
+    <RemoveDir Directories="$(IntDir)staging" />
+  </Target>
+  <Target Name="BeforeClCompile">
+    <ItemGroup>
+      <ProjectFiles Include="repo\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ProjectFiles)" DestinationFolder="$(IntDir)staging\%(RecursiveDir)" />
+    <RunLuaJITBuild Root="$(IntDir)staging\src" Arguments="static" Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" CompileOptions="/DLUAJIT_ENABLE_LUA52COMPAT /MTd" />
+    <RunLuaJITBuild Root="$(IntDir)staging\src" Arguments="static" Condition="'$(Configuration)|$(Platform)'=='release|Win32'" CompileOptions="/DLUAJIT_ENABLE_LUA52COMPAT /MT" />
+    <ItemGroup>
+      <LuaFile Include="$(IntDir)staging\src\jit\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="$(IntDir)staging\src\luajit.exe" DestinationFiles="$(OutDir)\luajit.exe" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(IntDir)staging\src\lua51.lib" DestinationFiles="$(OutDir)\lua51.static.lib" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(LuaFile)" DestinationFolder="$(OutDir)\lua\jit\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

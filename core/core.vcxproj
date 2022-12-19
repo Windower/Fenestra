@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ReleaseBuild Condition="'$(ReleaseBuild)'==''">false</ReleaseBuild>
+    <ReleaseConstants Condition="'$(ReleaseBuild)'=='true'">WINDOWER_RELEASE_BUILD</ReleaseConstants>
+    <ReleaseConstants Condition="'$(ReleaseBuild)'!='true'">WINDOWER_TEST_BUILD</ReleaseConstants>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|Win32">
+      <Configuration>debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|Win32">
+      <Configuration>release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A25AD743-C0E9-4CA6-8DF1-8055EDE2D9A0}</ProjectGuid>
+    <RootNamespace>windower</RootNamespace>
+    <ProjectName>core</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+    <VcpkgInstalledDir>$(SolutionDir)build\obj\$(Configuration)\$(ProjectName)\vcpkg</VcpkgInstalledDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <VcpkgConfiguration>Debug</VcpkgConfiguration>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <VcpkgConfiguration>Release</VcpkgConfiguration>
+  </PropertyGroup>
+  <Target Name="BootstrapVcpkg" BeforeTargets="VcpkgInstallManifestDependencies">
+    <Exec Command="$(SolutionDir)extern\vcpkg\bootstrap-vcpkg -disableMetrics" />
+  </Target>
+  <Import Project="$(SolutionDir)extern\vcpkg\scripts\buildsystems\msbuild\vcpkg.targets" />
+  <ItemGroup>
+    <ClInclude Include="lib\d3d8.h" />
+    <ClInclude Include="lib\ddraw.h" />
+    <ClInclude Include="lib\dinput.h" />
+    <ClInclude Include="src\addon\errors\package_error.hpp" />
+    <ClInclude Include="src\addon\modules\class.hpp" />
+    <ClInclude Include="src\addon\modules\hash.hpp" />
+    <ClInclude Include="src\addon\modules\os.hpp" />
+    <ClInclude Include="src\addon\modules\pin.hpp" />
+    <ClInclude Include="src\addon\unsafe.hpp" />
+    <ClInclude Include="src\errors\command_error.hpp" />
+    <ClInclude Include="src\errors\xml_error.hpp" />
+    <ClInclude Include="src\errors\detail\error_messages.hpp" />
+    <ClInclude Include="src\errors\syntax_error.hpp" />
+    <ClInclude Include="src\addon\addon.hpp" />
+    <ClInclude Include="src\addon\addon_manager.hpp" />
+    <ClInclude Include="src\addon\error.hpp" />
+    <ClInclude Include="src\addon\lua.hpp" />
+    <ClInclude Include="src\addon\modules\chat.hpp" />
+    <ClInclude Include="src\addon\modules\command.hpp" />
+    <ClInclude Include="src\addon\modules\event.hpp" />
+    <ClInclude Include="src\addon\modules\packet.hpp" />
+    <ClInclude Include="src\addon\modules\scanner.hpp" />
+    <ClInclude Include="src\addon\modules\serializer.hpp" />
+    <ClInclude Include="src\addon\modules\channel.hpp" />
+    <ClInclude Include="src\addon\modules\ui.hpp" />
+    <ClInclude Include="src\addon\modules\unicode.hpp" />
+    <ClInclude Include="src\addon\modules\windower.hpp" />
+    <ClInclude Include="src\addon\package_manager.hpp" />
+    <ClInclude Include="src\addon\scheduler.hpp" />
+    <ClInclude Include="src\addon\script_base.hpp" />
+    <ClInclude Include="src\addon\script_environment.hpp" />
+    <ClInclude Include="src\binding_manager.hpp" />
+    <ClInclude Include="src\cloak.hpp" />
+    <ClInclude Include="src\command_handlers.hpp" />
+    <ClInclude Include="src\command_manager.hpp" />
+    <ClInclude Include="src\downloader.hpp" />
+    <ClInclude Include="src\addon\lua_internal.hpp" />
+    <ClInclude Include="src\geometry.hpp" />
+    <ClInclude Include="src\guid.hpp" />
+    <ClInclude Include="src\packet_queue.hpp" />
+    <ClInclude Include="src\settings_channel.hpp" />
+    <ClInclude Include="src\crash_handler.hpp" />
+    <ClInclude Include="src\hooklib\x86.hpp" />
+    <ClInclude Include="src\hooks\ddraw.hpp" />
+    <ClInclude Include="src\hooks\dinput8.hpp" />
+    <ClInclude Include="src\hooks\ffximain.hpp" />
+    <ClInclude Include="src\hooks\imm32.hpp" />
+    <ClInclude Include="src\licenses.hpp" />
+    <ClInclude Include="src\enums.hpp" />
+    <ClInclude Include="src\hooks\advapi32.hpp" />
+    <ClInclude Include="src\library.hpp" />
+    <ClInclude Include="src\scanner.hpp" />
+    <ClInclude Include="src\settings.hpp" />
+    <ClInclude Include="src\debug_console.hpp" />
+    <ClInclude Include="src\resource.hpp" />
+    <ClInclude Include="src\handle.hpp" />
+    <ClInclude Include="src\hooklib\hook.hpp" />
+    <ClInclude Include="src\core.hpp" />
+    <ClInclude Include="src\hooks\d3d8.hpp" />
+    <ClInclude Include="src\hooks\kernel32.hpp" />
+    <ClInclude Include="src\hooks\user32.hpp" />
+    <ClInclude Include="src\hooklib\trampoline.hpp" />
+    <ClInclude Include="src\ui\bitmap.hpp" />
+    <ClInclude Include="src\ui\color.hpp" />
+    <ClInclude Include="src\ui\commands.hpp" />
+    <ClInclude Include="src\ui\command_buffer.hpp" />
+    <ClInclude Include="src\ui\com_base.hpp" />
+    <ClInclude Include="src\ui\context.hpp" />
+    <ClInclude Include="src\ui\cursor.hpp" />
+    <ClInclude Include="src\ui\data_buffer.hpp" />
+    <ClInclude Include="src\ui\data_buffer_traits.hpp" />
+    <ClInclude Include="src\ui\dimension.hpp" />
+    <ClInclude Include="src\ui\direction.hpp" />
+    <ClInclude Include="src\ui\dwrite_iids.hpp" />
+    <ClInclude Include="src\ui\ffxi_image.hpp" />
+    <ClInclude Include="src\ui\id.hpp" />
+    <ClInclude Include="src\ui\inline_object.hpp" />
+    <ClInclude Include="src\ui\layer.hpp" />
+    <ClInclude Include="src\ui\markdown.hpp" />
+    <ClInclude Include="src\ui\mouse.hpp" />
+    <ClInclude Include="src\ui\mouse_button.hpp" />
+    <ClInclude Include="src\ui\mouse_scroll_axis.hpp" />
+    <ClInclude Include="src\ui\thickness.hpp" />
+    <ClInclude Include="src\ui\patch.hpp" />
+    <ClInclude Include="src\ui\primitives.hpp" />
+    <ClInclude Include="src\ui\rectangle.hpp" />
+    <ClInclude Include="src\ui\static_any.hpp" />
+    <ClInclude Include="src\ui\texture.hpp" />
+    <ClInclude Include="src\ui\texture_cache.hpp" />
+    <ClInclude Include="src\ui\texture_loaders.hpp" />
+    <ClInclude Include="src\ui\texture_token.hpp" />
+    <ClInclude Include="src\ui\text_layout_engine.hpp" />
+    <ClInclude Include="src\ui\text_layout_options.hpp" />
+    <ClInclude Include="src\ui\text_rasterization_options.hpp" />
+    <ClInclude Include="src\ui\text_rasterizer.hpp" />
+    <ClInclude Include="src\ui\transform.hpp" />
+    <ClInclude Include="src\ui\user_interface.hpp" />
+    <ClInclude Include="src\ui\vector.hpp" />
+    <ClInclude Include="src\ui\vertex.hpp" />
+    <ClInclude Include="src\ui\widget\basic_button.hpp" />
+    <ClInclude Include="src\ui\widget\button.hpp" />
+    <ClInclude Include="src\ui\widget\check.hpp" />
+    <ClInclude Include="src\ui\widget\color_picker.hpp" />
+    <ClInclude Include="src\ui\widget\edit.hpp" />
+    <ClInclude Include="src\ui\widget\error_box.hpp" />
+    <ClInclude Include="src\ui\widget\image_button.hpp" />
+    <ClInclude Include="src\ui\widget\label.hpp" />
+    <ClInclude Include="src\ui\widget\link.hpp" />
+    <ClInclude Include="src\ui\widget\progress.hpp" />
+    <ClInclude Include="src\ui\widget\radio.hpp" />
+    <ClInclude Include="src\ui\widget\scroll_panel.hpp" />
+    <ClInclude Include="src\ui\widget\slider.hpp" />
+    <ClInclude Include="src\ui\widget\window.hpp" />
+    <ClInclude Include="src\ui\window.hpp" />
+    <ClInclude Include="src\ui\window_manager.hpp" />
+    <ClInclude Include="src\unicode.hpp" />
+    <ClInclude Include="src\utilities\null_output.hpp" />
+    <ClInclude Include="src\utilities\xml.hpp" />
+    <ClInclude Include="src\utility.hpp" />
+    <ClInclude Include="src\version.hpp" />
+    <ClInclude Include="src\wrappers\direct_3d.hpp" />
+    <ClInclude Include="src\wrappers\direct_3d_device.hpp" />
+    <ClInclude Include="src\wrappers\direct_draw.hpp" />
+    <ClInclude Include="src\wrappers\direct_draw_surface.hpp" />
+    <ClInclude Include="src\wrappers\direct_input.hpp" />
+    <ClInclude Include="src\wrappers\direct_input_device.hpp" />
+    <ClInclude Include="src\wrappers\direct_input_keyboard.hpp" />
+    <ClInclude Include="src\errors\windower_error.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\addon\errors\package_error.cpp" />
+    <ClCompile Include="src\addon\modules\class.cpp" />
+    <ClCompile Include="src\addon\modules\hash.cpp" />
+    <ClCompile Include="src\addon\modules\os.cpp" />
+    <ClCompile Include="src\addon\modules\pin.cpp" />
+    <ClCompile Include="src\addon\unsafe.cpp" />
+    <ClCompile Include="src\errors\command_error.cpp" />
+    <ClCompile Include="src\errors\syntax_error.cpp" />
+    <ClCompile Include="src\addon\addon.cpp" />
+    <ClCompile Include="src\addon\addon_manager.cpp" />
+    <ClCompile Include="src\addon\error.cpp" />
+    <ClCompile Include="src\addon\lua.cpp" />
+    <ClCompile Include="src\addon\modules\chat.cpp" />
+    <ClCompile Include="src\addon\modules\command.cpp" />
+    <ClCompile Include="src\addon\modules\event.cpp" />
+    <ClCompile Include="src\addon\modules\packet.cpp" />
+    <ClCompile Include="src\addon\modules\scanner.cpp" />
+    <ClCompile Include="src\addon\modules\serializer.cpp" />
+    <ClCompile Include="src\addon\modules\channel.cpp" />
+    <ClCompile Include="src\addon\modules\ui.cpp" />
+    <ClCompile Include="src\addon\modules\unicode.cpp" />
+    <ClCompile Include="src\addon\modules\windower.cpp" />
+    <ClCompile Include="src\addon\package_manager.cpp" />
+    <ClCompile Include="src\addon\scheduler.cpp" />
+    <ClCompile Include="src\addon\script_base.cpp" />
+    <ClCompile Include="src\addon\script_environment.cpp" />
+    <ClCompile Include="src\binding_manager.cpp" />
+    <ClCompile Include="src\cloak.cpp" />
+    <ClCompile Include="src\command_handlers.cpp" />
+    <ClCompile Include="src\command_manager.cpp" />
+    <ClCompile Include="src\crash_handler.cpp" />
+    <ClCompile Include="src\downloader.cpp" />
+    <ClCompile Include="src\errors\xml_error.cpp" />
+    <ClCompile Include="src\guid.cpp" />
+    <ClCompile Include="src\hooklib\x86.cpp" />
+    <ClCompile Include="src\hooks\ddraw.cpp" />
+    <ClCompile Include="src\hooks\dinput8.cpp" />
+    <ClCompile Include="src\hooks\ffximain.cpp" />
+    <ClCompile Include="src\hooks\imm32.cpp" />
+    <ClCompile Include="src\hooks\advapi32.cpp" />
+    <ClCompile Include="src\addon\lua_internal.cpp" />
+    <ClCompile Include="src\library.cpp" />
+    <ClCompile Include="src\packet_queue.cpp" />
+    <ClCompile Include="src\scanner.cpp" />
+    <ClCompile Include="src\settings.cpp" />
+    <ClCompile Include="src\core.cpp" />
+    <ClCompile Include="src\debug_console.cpp" />
+    <ClCompile Include="src\handle.cpp" />
+    <ClCompile Include="src\hooklib\trampoline.cpp" />
+    <ClCompile Include="src\hooks\d3d8.cpp" />
+    <ClCompile Include="src\hooks\kernel32.cpp" />
+    <ClCompile Include="src\hooks\user32.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\settings_channel.cpp" />
+    <ClCompile Include="src\ui\bitmap.cpp" />
+    <ClCompile Include="src\ui\commands.cpp" />
+    <ClCompile Include="src\ui\command_buffer.cpp" />
+    <ClCompile Include="src\ui\cursor.cpp" />
+    <ClCompile Include="src\ui\data_buffer_traits.cpp" />
+    <ClCompile Include="src\ui\context.cpp" />
+    <ClCompile Include="src\ui\ffxi_image.cpp" />
+    <ClCompile Include="src\ui\inline_object.cpp" />
+    <ClCompile Include="src\ui\markdown.cpp" />
+    <ClCompile Include="src\ui\mouse.cpp" />
+    <ClCompile Include="src\ui\primitives.cpp" />
+    <ClCompile Include="src\ui\texture_cache.cpp" />
+    <ClCompile Include="src\ui\texture_loaders.cpp" />
+    <ClCompile Include="src\ui\text_layout_engine.cpp" />
+    <ClCompile Include="src\ui\text_layout_options.cpp" />
+    <ClCompile Include="src\ui\text_rasterizer.cpp" />
+    <ClCompile Include="src\ui\user_interface.cpp" />
+    <ClCompile Include="src\ui\widget\basic_button.cpp" />
+    <ClCompile Include="src\ui\widget\button.cpp" />
+    <ClCompile Include="src\ui\widget\check.cpp" />
+    <ClCompile Include="src\ui\widget\color_picker.cpp" />
+    <ClCompile Include="src\ui\widget\edit.cpp" />
+    <ClCompile Include="src\ui\widget\error_box.cpp" />
+    <ClCompile Include="src\ui\widget\image_button.cpp" />
+    <ClCompile Include="src\ui\widget\label.cpp" />
+    <ClCompile Include="src\ui\widget\link.cpp" />
+    <ClCompile Include="src\ui\widget\progress.cpp" />
+    <ClCompile Include="src\ui\widget\radio.cpp" />
+    <ClCompile Include="src\ui\widget\scroll_panel.cpp" />
+    <ClCompile Include="src\ui\widget\slider.cpp" />
+    <ClCompile Include="src\ui\widget\window.cpp" />
+    <ClCompile Include="src\ui\window.cpp" />
+    <ClCompile Include="src\ui\window_manager.cpp" />
+    <ClCompile Include="src\unicode.cpp" />
+    <ClCompile Include="src\utilities\xml.cpp" />
+    <ClCompile Include="src\utility.cpp" />
+    <ClCompile Include="src\wrappers\direct_3d.cpp" />
+    <ClCompile Include="src\wrappers\direct_3d_device.cpp" />
+    <ClCompile Include="src\wrappers\direct_draw.cpp" />
+    <ClCompile Include="src\wrappers\direct_draw_surface.cpp" />
+    <ClCompile Include="src\wrappers\direct_input.cpp" />
+    <ClCompile Include="src\wrappers\direct_input_device.cpp" />
+    <ClCompile Include="src\wrappers\direct_input_keyboard.cpp" />
+    <ClCompile Include="src\errors\windower_error.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\icons.png" />
+    <Image Include="res\layout-grid.100.png" />
+    <Image Include="res\layout-grid.125.png" />
+    <Image Include="res\layout-grid.150.png" />
+    <Image Include="res\layout-grid.175.png" />
+    <Image Include="res\layout-grid.200.png" />
+    <Image Include="res\layout-grid.225.png" />
+    <Image Include="res\layout-grid.250.png" />
+    <Image Include="res\layout-grid.275.png" />
+    <Image Include="res\layout-grid.300.png" />
+    <Image Include="res\layout-grid.325.png" />
+    <Image Include="res\layout-grid.350.png" />
+    <Image Include="res\layout-grid.375.png" />
+    <Image Include="res\layout-grid.400.png" />
+    <Image Include="res\stable\icon.ico" />
+    <Image Include="res\stable\skin.100.png" />
+    <Image Include="res\stable\skin.125.png" />
+    <Image Include="res\stable\skin.150.png" />
+    <Image Include="res\stable\skin.175.png" />
+    <Image Include="res\stable\skin.200.png" />
+    <Image Include="res\stable\skin.225.png" />
+    <Image Include="res\stable\skin.250.png" />
+    <Image Include="res\stable\skin.275.png" />
+    <Image Include="res\stable\skin.300.png" />
+    <Image Include="res\stable\skin.325.png" />
+    <Image Include="res\stable\skin.350.png" />
+    <Image Include="res\stable\skin.375.png" />
+    <Image Include="res\stable\skin.400.png" />
+    <Image Include="res\system.100.png" />
+    <Image Include="res\system.125.png" />
+    <Image Include="res\system.150.png" />
+    <Image Include="res\system.175.png" />
+    <Image Include="res\system.200.png" />
+    <Image Include="res\system.225.png" />
+    <Image Include="res\system.250.png" />
+    <Image Include="res\system.275.png" />
+    <Image Include="res\system.300.png" />
+    <Image Include="res\system.325.png" />
+    <Image Include="res\system.350.png" />
+    <Image Include="res\system.375.png" />
+    <Image Include="res\system.400.png" />
+    <Image Include="res\test\icon.ico" />
+    <Image Include="res\test\skin.100.png" />
+    <Image Include="res\test\skin.125.png" />
+    <Image Include="res\test\skin.150.png" />
+    <Image Include="res\test\skin.175.png" />
+    <Image Include="res\test\skin.200.png" />
+    <Image Include="res\test\skin.225.png" />
+    <Image Include="res\test\skin.250.png" />
+    <Image Include="res\test\skin.275.png" />
+    <Image Include="res\test\skin.300.png" />
+    <Image Include="res\test\skin.325.png" />
+    <Image Include="res\test\skin.350.png" />
+    <Image Include="res\test\skin.375.png" />
+    <Image Include="res\test\skin.400.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\client-commands.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="core.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="core.def" />
+    <None Include="res\layout-grid.ai" />
+    <None Include="res\skin.ai" />
+    <None Include="res\system.ai" />
+    <None Include="src\addon\modules\channel.lua" />
+    <None Include="src\addon\modules\chat.lua" />
+    <None Include="src\addon\modules\class.lua" />
+    <None Include="src\addon\modules\command.lua" />
+    <None Include="src\addon\modules\event.lua" />
+    <None Include="src\addon\modules\hash.lua" />
+    <None Include="src\addon\modules\os.lua" />
+    <None Include="src\addon\modules\packet.lua" />
+    <None Include="src\addon\modules\pin.lua" />
+    <None Include="src\addon\modules\scanner.lua" />
+    <None Include="src\addon\modules\serializer.lua" />
+    <None Include="src\addon\modules\ui.lua" />
+    <None Include="src\addon\modules\unicode.lua" />
+    <None Include="src\addon\modules\windower.lua" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <OutDir>$(SolutionDir)build\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet>..\fenestra.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <OutDir>$(SolutionDir)build\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet>$(SolutionDir)\windower.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WINDOWER_AUTO_VERSION;$(ReleaseConstants);WIN32_LEAN_AND_MEAN;NOMINMAX;WINVER=_WIN32_WINNT_WIN8;_WIN32_WINNT=_WIN32_WINNT_WIN8;PSAPI_VERSION=1;_HAS_AUTO_PTR_ETC=0;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;NDEBUG;_DEBUG;gsl_FEATURE_WITH_CONTAINER_TO_STD=14;gsl_FEATURE_MAKE_SPAN_TO_STD=14;gsl_FEATURE_BYTE_SPAN_TO_STD=14;gsl_FEATURE_OWNER_MACRO=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir)src;$(ProjectDir)src;$(ProjectDir)lib;$(SolutionDir)extern\luajit\repo\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>true</EnablePREfast>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/await /utf-8 /Zc:externConstexpr /Zc:throwingNew /Zc:__cplusplus</AdditionalOptions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <ObjectFileName>$(IntDir)\%(RelativeDir)</ObjectFileName>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+      <ConformanceMode>true</ConformanceMode>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <DisableAnalyzeExternal>true</DisableAnalyzeExternal>
+      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+      <ExternalTemplatesDiagnostics>false</ExternalTemplatesDiagnostics>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\lib\luajit\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>$(ProjectName).def</ModuleDefinitionFile>
+      <AdditionalDependencies>lua51.static.lib;shlwapi.lib;dbghelp.lib;winhttp.lib;imm32.lib;dwrite.lib;d2d1.lib;windowscodecs.lib;icu.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(IntDir)src;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWER_AUTO_VERSION;$(ReleaseConstants);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/c 1252</AdditionalOptions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WINDOWER_AUTO_VERSION;$(ReleaseConstants);WIN32_LEAN_AND_MEAN;NOMINMAX;WINVER=_WIN32_WINNT_WIN8;_WIN32_WINNT=_WIN32_WINNT_WIN8;PSAPI_VERSION=1;_HAS_AUTO_PTR_ETC=0;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;NDEBUG;gsl_FEATURE_WITH_CONTAINER_TO_STD=14;gsl_FEATURE_MAKE_SPAN_TO_STD=14;gsl_FEATURE_BYTE_SPAN_TO_STD=14;gsl_FEATURE_OWNER_MACRO=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir)src;$(ProjectDir)src;$(ProjectDir)lib;$(SolutionDir)extern\luajit\repo\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>true</EnablePREfast>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/await /utf-8 /Zc:externConstexpr /Zc:throwingNew /Zc:__cplusplus</AdditionalOptions>
+      <OmitFramePointers />
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <ObjectFileName>$(IntDir)\%(RelativeDir)</ObjectFileName>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+      <ConformanceMode>true</ConformanceMode>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+      <ExternalTemplatesDiagnostics>false</ExternalTemplatesDiagnostics>
+      <DisableAnalyzeExternal>true</DisableAnalyzeExternal>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\lib\luajit\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>$(ProjectName).def</ModuleDefinitionFile>
+      <AdditionalDependencies>lua51.static.lib;shlwapi.lib;dbghelp.lib;winhttp.lib;imm32.lib;dwrite.lib;d2d1.lib;windowscodecs.lib;icu.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
+    </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(IntDir)src;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWER_AUTO_VERSION;$(ReleaseConstants);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/c 1252</AdditionalOptions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <UsingTask TaskName="GenerateVersionNumber" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <File ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs">
+        var localTime = DateTime.Now;
+        var build = (int)(localTime - new DateTime(2000, 1, 1)).TotalDays;
+        var revision = (int)localTime.TimeOfDay.TotalSeconds / 2;
+
+        Directory.CreateDirectory(Path.GetDirectoryName(File));
+        using (var file = new StreamWriter(File, false, new UTF8Encoding()))
+        {
+        file.WriteLine("// !!! DO NOT EDIT !!!");
+        file.WriteLine("// THIS FILE IS AUTOMATICALLY GENERATED.");
+        file.WriteLine("#ifndef WINDOWER_VERSION_AUTO_HPP");
+        file.WriteLine("#define WINDOWER_VERSION_AUTO_HPP");
+        file.WriteLine("#pragma once");
+        file.WriteLine();
+        file.WriteLine("#ifdef WINDOWER_VERSION_BUILD");
+        file.WriteLine("#   undef WINDOWER_VERSION_BUILD");
+        file.WriteLine("#endif");
+        file.WriteLine("#ifdef WINDOWER_VERSION_REV");
+        file.WriteLine("#   undef WINDOWER_VERSION_REV");
+        file.WriteLine("#endif");
+        file.WriteLine();
+        file.WriteLine("#define WINDOWER_VERSION_BUILD {0}", build);
+        file.WriteLine("#define WINDOWER_VERSION_REV {0}", revision);
+        file.WriteLine();
+        file.WriteLine("#endif");
+        }
+      </Code>
+    </Task>
+  </UsingTask>
+  <UsingTask TaskName="CompileLua" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <Compiler ParameterType="System.String" Required="true" />
+      <CompilerFlags ParameterType="System.String" Required="true" />
+      <Source ParameterType="System.String" Required="true" />
+      <OutputDir ParameterType="System.String" Required="true" />
+      <Namespace ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs">
+        var module = Path.GetFileNameWithoutExtension(Source);
+        var raw = Path.Combine(OutputDir, Path.GetFileName(Source) + ".raw");
+        var header = Path.Combine(OutputDir, Path.GetFileName(Source) + ".hpp");
+
+        Log.LogMessage(MessageImportance.High, string.Format("{0} -&gt; {1}",
+        Path.GetFileName(Source), Path.GetFileName(header)));
+
+        using (var process = new System.Diagnostics.Process())
+        {
+        process.StartInfo.FileName = Compiler;
+        process.StartInfo.Arguments = CompilerFlags + " -n " + module + " -t raw -- \"" + Source + "\" \"" + raw + "\"";
+        process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.RedirectStandardError = true;
+
+        process.ErrorDataReceived += (sender, e) =&gt;
+        {
+        if (!string.IsNullOrEmpty(e.Data))
+        {
+        var parts = e.Data.Split(':');
+        int line;
+        if (int.TryParse(parts[2], out line))
+        {
+        BuildEngine.LogErrorEvent(new BuildErrorEventArgs("", "LJ0002", Source, line, 0, 0, 0,
+        parts[3].Trim(), "", ""));
+        }
+        else
+        {
+        BuildEngine.LogErrorEvent(new BuildErrorEventArgs("", "LJ0002", Source, 0, 0, 0, 0,
+        e.Data, "", ""));
+        }
+        }
+        };
+
+        process.Start();
+        process.BeginErrorReadLine();
+        process.WaitForExit();
+
+        if (process.ExitCode != 0)
+        {
+        Success = false;
+        BuildEngine.LogErrorEvent(new BuildErrorEventArgs("", "LJ0001", Source, 0, 0, 0, 0,
+        string.Format("error compiling {0}", Path.GetFileName(Source)), "", ""));
+        }
+        else
+        {
+        Directory.CreateDirectory(Path.GetDirectoryName(OutputDir));
+
+        using (var compiled = new FileStream(raw, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose))
+        using (var output = new StreamWriter(header, false, new UTF8Encoding()))
+        {
+        var includeGuard = Guid.NewGuid();
+        output.WriteLine("// Automatically Generated On {0:o}", DateTime.UtcNow);
+        output.WriteLine("#ifndef PRECOMPILED_LUA_{0:N}", includeGuard);
+        output.WriteLine("#define PRECOMPILED_LUA_{0:N}", includeGuard);
+        output.WriteLine();
+        output.WriteLine("#if defined(_MSC_VER)");
+        output.WriteLine("#    pragma warning(push, 0)");
+        output.WriteLine("#    pragma warning(disable : 26493)");
+        output.WriteLine("#endif");
+        output.WriteLine();
+        output.WriteLine("#include &lt;array&gt;");
+        output.WriteLine("#include &lt;cstddef&gt;");
+        output.WriteLine();
+        output.WriteLine("namespace {0}", Namespace);
+        output.WriteLine("{");
+        output.WriteLine();
+        output.Write("constexpr std::array&lt;std::byte, {1}&gt; lua_{0}_source{{", module, compiled.Length);
+
+        try
+        {
+        var count = 0;
+        var buffer = new byte[4096];
+        int read;
+        do
+        {
+        read = compiled.Read(buffer, 0, buffer.Length);
+        for (int i = 0; i &lt; read; i++, count++)
+        {
+        if (count % 4 == 0)
+        {
+        output.WriteLine();
+        output.Write("   ");
+        }
+        output.Write(" std::byte{0x");
+        output.Write("{0:X2}", buffer[i]);
+        output.Write("},");
+        }
+        }
+        while (read &gt; 0);
+        }
+        finally
+        {
+        output.WriteLine();
+
+        output.WriteLine("};");
+        output.WriteLine();
+        output.WriteLine("}");
+        output.WriteLine();
+        output.WriteLine("#if defined(_MSC_VER)");
+        output.WriteLine("#    pragma warning(pop)");
+        output.WriteLine("#endif");
+        output.WriteLine();
+        output.WriteLine("#endif");
+        }
+        }
+        }
+        }
+      </Code>
+    </Task>
+  </UsingTask>
+  <Target Name="CollectLuaFiles" BeforeTargets="CompileLuaFiles" Returns="@(LuaFile)">
+    <ItemGroup>
+      <LuaFile Include="@(None)" Condition="'%(Extension)' == '.lua'" />
+    </ItemGroup>
+  </Target>
+  <Target Name="CompileLuaFiles" BeforeTargets="ClCompile" Inputs="@(LuaFile)" Outputs="@(LuaFile->'$(IntDir)%(RelativeDir)%(Filename)%(Extension).hpp')">
+    <PropertyGroup>
+      <LuaCompilerFlags Condition="'$(Configuration)' == 'debug'">-bg</LuaCompilerFlags>
+      <LuaCompilerFlags Condition="'$(Configuration)' != 'debug'">-b</LuaCompilerFlags>
+    </PropertyGroup>
+    <ItemGroup>
+      <FileWrites Include="@(LuaFile->'$(IntDir)%(RelativeDir)%(Filename)%(Extension).raw')" />
+      <FileWrites Include="@(LuaFile->'$(IntDir)%(RelativeDir)%(Filename)%(Extension).hpp')" />
+    </ItemGroup>
+    <CompileLua Compiler="$(SolutionDir)build\lib\luajit\$(Configuration)\luajit.exe" CompilerFlags="$(LuaCompilerFlags)" Source="%(LuaFile.Identity)" OutputDir="$(IntDir)%(LuaFile.RelativeDir)" Namespace="windower" Condition="'@(LuaFile)' != ''" />
+  </Target>
+  <Target Name="GenerateVersion" AfterTargets="CollectLuaFiles" BeforeTargets="ClCompile" Inputs="@(ClCompile);@(ClInclude);@(LuaFile)" Outputs="$(IntDir)src\version.auto.hpp">
+    <ItemGroup>
+      <FileWrites Include="$(IntDir)src\version.auto.hpp" />
+    </ItemGroup>
+    <GenerateVersionNumber File="$(IntDir)src\version.auto.hpp" />
+  </Target>
+</Project>

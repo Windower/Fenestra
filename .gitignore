@@ -1,0 +1,12 @@
+# Build Files
+/build
+
+# IDE Files
+/.vs
+/.vscode
+
+# User Files
+*.user
+
+# Resource Editor Files
+*.aps
