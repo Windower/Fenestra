@@ -5,11 +5,11 @@
 [![GitHub Stars][stars-badge]][stars-url]
 [![GitHub Forks][forks-badge]][forks-url]
 
+![Fenestra][banner]
+
 Fenestra is the open-source development version of [Windower][windower-homepage].
 
 All new features and bug fixes for the official builds of Windower are worked on here.
-
-![Fenestra][banner]
 
 <!--
 ## Contributing
