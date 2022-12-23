@@ -1,6 +1,7 @@
 # [Fenestra][github-project]
 
-[![Discord Server][discord-badge]][discord-url]<!--[![Build Status][build-status-badge]][build-status-url]-->
+[![Discord Server][discord-badge]][discord-url]
+[![Continuous Integration](build-status-badge)](build-status-url)
 [![GitHub Contributors][contributors-badge]][contributors-url]
 [![GitHub Stars][stars-badge]][stars-url]
 [![GitHub Forks][forks-badge]][forks-url]
@@ -33,7 +34,7 @@ This project uses the [MIT][license] license.
 [github-project]: https://github.com/Windower/Fenestra
 [windower-homepage]: https://windower.net
 
-[banner]: ../media/banner.png
+[banner]: https://github.com/Windower/Fenestra/raw/media/banner.png
 
 [contributing]: ./CONTRIBUTING.md
 [contribute]: https://github.com/Windower/Fenestra/contribute
@@ -41,13 +42,13 @@ This project uses the [MIT][license] license.
 [license]: ./LICENSE.md
 
 [discord-url]: https://discord.gg/2wCMexS
-[build-status-url]: https://github.com/windower/Fenestra/actions?query=workflow%3A"Build"+event%3Apush
+[build-status-url]: https://github.com/Windower/Fenestra/actions/workflows/ci.yml
 [contributors-url]: https://github.com/Windower/Fenestra/graphs/contributors
 [stars-url]: https://github.com/Windower/Fenestra/stargazers
 [forks-url]: https://github.com/Windower/Fenestra/network/members
 
 [discord-badge]: https://img.shields.io/discord/338590234235371531.svg?logo=discord&logoColor=white&colorB=7289da
-[build-status-badge]: https://github.com/Windower/Fenestra/workflows/Build/badge.svg?branch=master&event=push
+[build-status-badge]: https://github.com/Windower/Fenestra/actions/workflows/ci.yml/badge.svg?branch=main
 [contributors-badge]: https://img.shields.io/github/contributors/Windower/Fenestra
 [stars-badge]: https://img.shields.io/github/stars/Windower/Fenestra
 [forks-badge]: https://img.shields.io/github/forks/Windower/Fenestra
