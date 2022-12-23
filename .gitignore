@@ -1,5 +1,6 @@
 # Build Files
 /build
+/packages
 
 # IDE Files
 /.vs

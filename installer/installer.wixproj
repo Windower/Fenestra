@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ReleaseBuild Condition="'$(ReleaseBuild)'==''">false</ReleaseBuild>
+    <Configuration Condition=" '$(Configuration)' == '' ">debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.10</ProductVersion>
+    <ProjectGuid>ab956356-e570-465a-9554-2ceff4c7c590</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>windower</OutputName>
+    <OutputType>Package</OutputType>
+    <OutputPath>$(SolutionDir)build\bin\$(Configuration)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\obj\$(Configuration)\installer</IntermediateOutputPath>
+    <SuppressAllWarnings>False</SuppressAllWarnings>
+    <Pedantic>True</Pedantic>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'debug|x86' ">
+    <DefineConstants Condition=" '$(ReleaseBuild)' != 'false' ">Debug;ReleaseBuild</DefineConstants>
+    <DefineConstants Condition=" '$(ReleaseBuild)' == 'false' ">Debug</DefineConstants>
+    <SuppressValidation Condition=" '$(TF_BUILD)' == 'true' ">True</SuppressValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'release|x86' ">
+    <DefineConstants Condition=" '$(ReleaseBuild)' != 'false' ">ReleaseBuild</DefineConstants>
+    <SuppressValidation Condition=" '$(TF_BUILD)' == 'true' ">True</SuppressValidation>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="windower.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="res" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="res\branding.wxi" />
+    <Content Include="res\license.rtf" />
+    <Content Include="res\banner.bmp" />
+    <Content Include="res\dialog.bmp" />
+  </ItemGroup>
+  <UsingTask TaskName="WriteVersionInfo" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <OutputPath ParameterType="System.String" Required="true" />
+      <LauncherPath ParameterType="System.String" Required="true" />
+      <CorePath ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />
+      <Code Type="Fragment" Language="cs">
+        var timestamp = DateTime.UtcNow.ToString("O");
+        Version launcherVersion;
+        long launcherSize;
+        {
+            var info = System.Diagnostics.FileVersionInfo.GetVersionInfo(LauncherPath);
+            launcherVersion = new Version(info.ProductMajorPart, info.ProductMinorPart, info.ProductBuildPart, info.ProductPrivatePart);
+            launcherSize = new System.IO.FileInfo(LauncherPath).Length;
+        }
+        
+        Version coreVersion;
+        long coreSize;
+        {
+            var info = System.Diagnostics.FileVersionInfo.GetVersionInfo(CorePath);
+            coreVersion = new Version(info.ProductMajorPart, info.ProductMinorPart, info.ProductBuildPart, info.ProductPrivatePart);
+            coreSize = new System.IO.FileInfo(LauncherPath).Length;
+        }
+
+        var document = new System.Xml.Linq.XDocument(
+            new System.Xml.Linq.XElement("version",
+                new System.Xml.Linq.XElement("launcher",
+                    new System.Xml.Linq.XAttribute("version", launcherVersion),
+                    new System.Xml.Linq.XAttribute("size", launcherSize)),
+                new System.Xml.Linq.XElement("core",
+                    new System.Xml.Linq.XAttribute("version", coreVersion),
+                    new System.Xml.Linq.XAttribute("size", coreSize))));
+        document.Save(OutputPath);
+      </Code>
+    </Task>
+  </UsingTask>
+  <Target Name="BuildZips" BeforeTargets="Build" Outputs="$(OutDir)windower.zip">
+    <ItemGroup>
+      <ZipFiles Include="$(OutDir)core.dll" />
+      <ZipFiles Include="$(OutDir)windower.exe" />
+      <ZipFiles Include="$(SolutionDir)LICENSE.md" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ZipFiles)" DestinationFolder="$(IntermediateOutputPath)/windower" />
+    <ZipDirectory SourceDirectory="$(IntermediateOutputPath)/windower" DestinationFile="$(OutDir)windower.zip" Overwrite="true" />
+    <ItemGroup>
+      <ZipFiles Include="$(SolutionDir)paths.xml" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ZipFiles)" DestinationFolder="$(IntermediateOutputPath)/windower.portable" />
+    <ZipDirectory SourceDirectory="$(IntermediateOutputPath)/windower.portable" DestinationFile="$(OutDir)windower.portable.zip" Overwrite="true" />
+    <WriteVersionInfo OutputPath="$(OutDir)version.xml" LauncherPath="$(OutDir)windower.exe" CorePath="$(OutDir)core.dll" />
+  </Target>
+  <Target Name="CleanZips" BeforeTargets="Clean">
+    <Delete Files="$(OutDir)windower.zip;$(OutDir)windower.portable.zip" />
+  </Target>
+  <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
+  <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
+    <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
+  </Target>
+  <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
+  </Target>
+</Project>

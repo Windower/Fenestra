@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include res/branding.wxi ?>
+
+  <Product Id="*" Name="$(var.Name)" Version="5.0" Manufacturer="Windower Dev Team" Language="1033" UpgradeCode="$(var.Guid)">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"/>
+    <MediaTemplate EmbedCab="yes"/>
+    <UIRef Id="WixUI_InstallDir"/>
+    <Icon Id="windower.exe" SourceFile="$(var.SolutionDir)build\bin\$(var.Configuration)\windower.exe"/>
+    <Property Id="ARPPRODUCTICON" Value="windower.exe"/>
+    <Property Id="ARPURLINFOABOUT" Value="http://windower.net"/>
+    <Property Id="ARPNOREPAIR" Value="yes"/>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER"/>
+    <WixVariable Id="WixUIDialogBmp" Value="res\dialog.bmp"/>
+    <WixVariable Id="WixUIBannerBmp" Value="res\banner.bmp"/>
+    <WixVariable Id="WixUILicenseRtf" Value="res\license.rtf"/>
+    <Condition Message="This application is only supported on Windows 7 or higher.">
+      <![CDATA[Installed OR (VersionNT >= 601)]]>
+    </Condition>
+    <Feature Id="Feature" Title="Windower" Level="1">
+      <ComponentGroupRef Id="Components"/>
+    </Feature>
+  </Product>
+  
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="$(var.InstallDir)"/>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Components" Directory="INSTALLFOLDER">
+      <Component>
+        <File Source="$(var.SolutionDir)build\bin\$(var.Configuration)\windower.exe"/>
+      </Component>
+      <Component>
+        <File Source="$(var.SolutionDir)build\bin\$(var.Configuration)\core.dll"/>
+      </Component>
+      <Component>
+        <File Source="$(var.SolutionDir)LICENSE.md"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

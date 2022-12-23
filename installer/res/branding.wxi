@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include>
+  <?define Name="Fenestra"?>
+  <?define Guid="3A2D4C42-3F4E-458F-A799-79A56072F716"?>
+  <?define InstallDir="Fenestra"?>
+</Include>
