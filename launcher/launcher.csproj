@@ -21,17 +21,15 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <OutputPath>$(SolutionDir)build\bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\obj\launcher\$(Configuration)\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)build\obj\launcher\$(Configuration)\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>$(SolutionDir)build\bin\debug\</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\obj\launcher\debug\</IntermediateOutputPath>
-    <BaseIntermediateOutputPath>$(SolutionDir)build\obj\launcher\debug\</BaseIntermediateOutputPath>
     <DefineConstants>$(ReleaseConstants);DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -46,9 +44,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)build\bin\release\</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\obj\launcher\release\</IntermediateOutputPath>
-    <BaseIntermediateOutputPath>$(SolutionDir)build\obj\launcher\release\</BaseIntermediateOutputPath>
     <DefineConstants>$(ReleaseConstants);TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

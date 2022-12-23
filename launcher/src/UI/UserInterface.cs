@@ -47,13 +47,6 @@ namespace Windower.UI
                 var application = new WindowerApplication();
                 LoadStringResources(application);
 
-#if WINDOWER_RELEASE_BUILD
-                application.Resources.MergedDictionaries.Add(new ResourceDictionary()
-                {
-                    Source = new Uri("/windower;component/res/Release/Branding.xaml", UriKind.Relative)
-                });
-#endif
-
                 application.ShutdownMode = ShutdownMode.OnLastWindowClose;
                 application.Startup += (s, e) =>
                 {
