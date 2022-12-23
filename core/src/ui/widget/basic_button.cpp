@@ -59,8 +59,9 @@ button_state basic_button(context& ctx, id id) noexcept
     {
         state.hot = ctx.hit_test(id);
 
-        auto const& mouse         = ctx.mouse();
-        auto const mouse_position = *ctx.to_widget(mouse.position());
+        auto const& mouse = ctx.mouse();
+        auto const mouse_position =
+            ctx.to_widget(mouse.position()).value_or(vector{});
 
         if (ctx.is_inactive() && state.hot)
         {

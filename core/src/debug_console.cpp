@@ -96,7 +96,7 @@ void windower::debug_console::run()
 
     handle signal = ::CreateEventW(nullptr, false, false, nullptr);
 
-    std::vector<wchar_t> command;
+    std::wstring command;
     while (m_open)
     {
         auto output_handle = ::GetStdHandle(STD_OUTPUT_HANDLE);
@@ -118,7 +118,7 @@ void windower::debug_console::run()
         do
         {
             ::DWORD read = 0;
-            std::array<wchar_t, 256> buffer;
+            std::array<wchar_t, 256> buffer = {};
             if (::ReadConsoleW(
                     input_handle, buffer.data(), buffer.size(), &read,
                     nullptr) &&

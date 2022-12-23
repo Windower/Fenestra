@@ -55,7 +55,7 @@ public:
     }
 
     ime_context& operator=(ime_context const&) = delete;
-    ime_context& operator=(ime_context&&) = delete;
+    ime_context& operator=(ime_context&&)      = delete;
 
     explicit operator bool() const noexcept { return m_himc != nullptr; }
     operator ::HIMC() const noexcept { return m_himc; }
@@ -75,7 +75,7 @@ public:
     ~edit_focus_state() noexcept = default;
 
     edit_focus_state& operator=(edit_focus_state const&) noexcept = default;
-    edit_focus_state& operator=(edit_focus_state&&) noexcept = default;
+    edit_focus_state& operator=(edit_focus_state&&) noexcept      = default;
 
     char8_t const* text_data = nullptr;
     std::size_t text_size    = 0;
@@ -148,7 +148,8 @@ public:
             {
                 auto code_units = std::array{high_surrogate, code_unit};
                 auto index      = std ::size_t{};
-                code_point      = next_code_point(code_units, index);
+                code_point      = next_code_point(
+                    {code_units.data(), code_units.size()}, index);
             }
             else
             {
@@ -164,7 +165,7 @@ public:
     {
         auto const buffer_size =
             ::ImmGetCompositionStringW(himc, index, nullptr, 0);
-        std::vector<::WCHAR> buffer;
+        std::wstring buffer;
         buffer.resize((buffer_size + sizeof(::WCHAR) - 1) / sizeof(::WCHAR));
         ::ImmGetCompositionStringW(himc, index, buffer.data(), buffer_size);
         // composition_string.clear();
@@ -248,8 +249,9 @@ void basic_edit(context& ctx, id id, edit_state& state) noexcept
     {
         auto const hot = ctx.hit_test(id);
 
-        auto const& mouse         = ctx.mouse();
-        auto const mouse_position = *ctx.to_widget(mouse.position());
+        auto const& mouse = ctx.mouse();
+        auto const mouse_position =
+            ctx.to_widget(mouse.position()).value_or(vector{});
 
         if (mouse.was_pressed(mouse_button::left))
         {

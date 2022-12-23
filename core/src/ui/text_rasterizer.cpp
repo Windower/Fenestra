@@ -134,7 +134,10 @@ public:
         gsl::not_null<::ID2D1Factory*> m_dwrite_factory,
         gsl::not_null<::IDWriteTextRenderer**> ppvObject) noexcept
     {
+#pragma warning(push)
+#pragma warning(disable : 28193)
         *ppvObject = new (std::nothrow) fill_rasterizer{m_dwrite_factory};
+#pragma warning(pop)
     }
 
     // IDWriteTextRenderer
@@ -367,7 +370,10 @@ public:
         gsl::not_null<::ID2D1Factory*> m_dwrite_factory,
         gsl::not_null<::IDWriteTextRenderer**> ppvObject) noexcept
     {
+#pragma warning(push)
+#pragma warning(disable : 28193)
         *ppvObject = new (std::nothrow) stroke_rasterizer{m_dwrite_factory};
+#pragma warning(pop)
     }
 
     // IDWriteTextRenderer

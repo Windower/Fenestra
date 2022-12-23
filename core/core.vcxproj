@@ -267,6 +267,7 @@
     <ClCompile Include="src\errors\windower_error.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\icon.ico" />
     <Image Include="res\icons.png" />
     <Image Include="res\layout-grid.100.png" />
     <Image Include="res\layout-grid.125.png" />
@@ -376,14 +377,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
     <OutDir>$(SolutionDir)build\bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <CodeAnalysisRuleSet>..\fenestra.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>$(SolutionDir)\fenestra.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
     <OutDir>$(SolutionDir)build\bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <CodeAnalysisRuleSet>$(SolutionDir)\windower.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>$(SolutionDir)\fenestra.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
   </PropertyGroup>
