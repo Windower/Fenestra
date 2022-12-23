@@ -2,9 +2,9 @@ name: Continuous Integration
 
 on:
   push:
-    branches: master
+    branches: ['main', 'stable']
   pull_request:
-    branches: master
+    branches: ['main', 'stable']
 
 env:
   SYMBOLS_DAYS_TO_KEEP: 14
@@ -18,29 +18,58 @@ jobs:
   build:
     name: Build
     runs-on: windows-2022
+    if: |
+      !contains(github.event.head_commit.message, '***NO_CI***') &&
+      !contains(github.event.head_commit.message, '[skip ci]')
     steps:
       - name: Set up build environment
-        uses: microsoft/setup-msbuild@v1.0.3
+        uses: microsoft/setup-msbuild@v1.1
+      - name: Set up NuGet
+        uses: nuget/setup-nuget@v1
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          path: main
+          submodules: recursive
+          fetch-depth: 0 # git complains when cloning the submodules without this
+      - name: Checkout branding
+        if: github.repository == 'Windower/Fenestra'
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BRANDING_PAT }}
+          repository: Windower/Branding
+          ref: ${{ github.ref_name == 'stable' && '5.0/release' || '5.0/test' }}
+          path: branding
+      - name: Apply branding
+        if: github.repository == 'Windower/Fenestra'
+        run: |
+          Remove-Item 'branding/.git' -Recurse -Force
+          Copy-Item 'branding/*' 'main' -Recurse -Force
       - name: Build
         run: |
-          &msbuild windower.sln -t:'restore;build' -p:configuration=release -m -nowarn:NU1503
+          Set-Location main
+          &msbuild fenestra.sln -t:'restore;build' -p:configuration=release -m -nowarn:NU1503
+          &nuget restore installer.sln
+          &msbuild installer.sln -t:'build' -p:configuration=release -m -nowarn:NU1503
       - name: Install debug tools
         run: choco install windows-sdk-10-version-2004-windbg
       - name: Index sources
-        run: .github/workflows/index-sources
+        run: |
+          Set-Location main
+          .github/workflows/index-sources
       - name: Upload build artifacts
         if: github.event_name == 'push'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: binaries
-          path: build/bin/release/
+          path: main/build/bin/release/
   deploy:
     name: Deploy
     needs: build
     runs-on: windows-2022
-    if: github.event_name == 'push'
+    if: |
+      github.repository == 'Windower/Fenestra' &&
+      github.event_name == 'push'
     steps:
       - name: Set up SSH
         run: |
@@ -59,7 +88,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Download build artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: binaries
           path: artifacts
@@ -86,11 +115,11 @@ jobs:
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
-          SYMBOLS_PATH: ${{ secrets.SYMBOLS_PATH }}
+          SYMBOLS_PATH: ${{ secrets.SYMBOLS_PATH }}/${{ github.ref_name == 'stable' && 'release' || 'test' }}
       - name: Deploy to server
         run: .github/workflows/deploy
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
-          FILES_PATH: ${{ secrets.FILES_PATH }}
-          SYMBOLS_PATH: ${{ secrets.SYMBOLS_PATH }}
+          FILES_PATH: ${{ secrets.FILES_PATH }}/${{ github.ref_name == 'stable' && 'release' || 'test' }}
+          SYMBOLS_PATH: ${{ secrets.SYMBOLS_PATH }}/${{ github.ref_name == 'stable' && 'release' || 'test' }}

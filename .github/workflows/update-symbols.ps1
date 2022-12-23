@@ -17,6 +17,5 @@ Get-ChildItem $stagingSymbols -Directory |
             Where-Object { $_.CreationTime -lt $cutoffDate } |
             Remove-Item -Recurse -Force
     }
-&$symstore add /r /f './temp/symbols' /s './staging/symbols' /t '.'`
-    /compress -:NOREFS
+&$symstore add /r /f './temp/symbols' /s './staging/symbols' /t '.' /compress
 Remove-Item './staging/symbols/000Admin' -Recurse -Force -ErrorAction Ignore
