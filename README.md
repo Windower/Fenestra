@@ -1,7 +1,7 @@
 # [Fenestra][github-project]
 
 [![Discord Server][discord-badge]][discord-url]
-[![Continuous Integration](build-status-badge)](build-status-url)
+[![Continuous Integration][build-status-badge]][build-status-url]
 [![GitHub Contributors][contributors-badge]][contributors-url]
 [![GitHub Stars][stars-badge]][stars-url]
 [![GitHub Forks][forks-badge]][forks-url]
