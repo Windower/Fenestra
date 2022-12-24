@@ -112,10 +112,10 @@ unicode.from_utf16 = function(utf16_string, utf16_length)
     end
 
     local utf8_ptr = ffi_gc(from_wstring_native(utf16_string, utf16_length),
-                            delete_string)
-    local utf8_length = string_length(utf8_ptr)
-    local result = ffi_string(string_data(utf8_ptr), utf8_length)
-    delete_string(ffi_gc(utf8_ptr, nil))
+                            delete_u8string)
+    local utf8_length = u8string_length(utf8_ptr)
+    local result = ffi_string(u8string_data(utf8_ptr), utf8_length)
+    delete_u8string(ffi_gc(utf8_ptr, nil))
     return result, utf8_length
 end
 
@@ -126,10 +126,10 @@ unicode.to_shift_jis = function(utf8_string)
     end
 
     local shift_jis_ptr = ffi_gc(to_sjis_string_native(utf8_string, #utf8_string),
-                                 delete_string)
-    local shift_jis_length = string_length(shift_jis_ptr)
-    local result = ffi_string(string_data(shift_jis_ptr), shift_jis_length)
-    delete_string(ffi_gc(shift_jis_ptr, nil))
+                                 delete_u8string)
+    local shift_jis_length = u8string_length(shift_jis_ptr)
+    local result = ffi_string(u8string_data(shift_jis_ptr), shift_jis_length)
+    delete_u8string(ffi_gc(shift_jis_ptr, nil))
     return result, shift_jis_length
 end
 
@@ -141,10 +141,10 @@ unicode.from_shift_jis = function(shift_jis_string)
 
     local utf8_ptr = ffi_gc(from_sjis_string_native(shift_jis_string,
                                                   #shift_jis_string),
-                            delete_string)
-    local utf8_length = string_length(utf8_ptr)
-    local result = ffi_string(string_data(utf8_ptr), utf8_length)
-    delete_string(ffi_gc(utf8_ptr, nil))
+                            delete_u8string)
+    local utf8_length = u8string_length(utf8_ptr)
+    local result = ffi_string(u8string_data(utf8_ptr), utf8_length)
+    delete_u8string(ffi_gc(utf8_ptr, nil))
     return result, utf8_length
 end
 
@@ -209,10 +209,10 @@ do
                                        bit_band(string_byte(utf8, 4), 0x3F))
             if code_point >= 0xF0000 and code_point <= 0x10FFFF then
                 local ptr = ffi_gc(lookup_autotranslate(code_point),
-                                   delete_string)
-                local length = string_length(ptr)
+                                   delete_u8string)
+                local length = u8string_length(ptr)
                 if length > 0 then
-                    return prefix .. ffi_string(string_data(ptr), length) ..
+                    return prefix .. ffi_string(u8string_data(ptr), length) ..
                                postfix
                 end
             end
