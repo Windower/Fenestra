@@ -33,7 +33,9 @@ jobs:
           submodules: recursive
           fetch-depth: 0 # git complains when cloning the submodules without this
       - name: Checkout branding
-        if: github.repository == 'Windower/Fenestra'
+        if:
+          github.repository == 'Windower/Fenestra' &&
+          github.event_name == 'push'
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.BRANDING_PAT }}
@@ -41,7 +43,9 @@ jobs:
           ref: ${{ github.ref_name == 'stable' && '5.0/release' || '5.0/test' }}
           path: branding
       - name: Apply branding
-        if: github.repository == 'Windower/Fenestra'
+        if:
+          github.repository == 'Windower/Fenestra' &&
+          github.event_name == 'push'
         run: |
           Remove-Item 'branding/.git' -Recurse -Force
           Copy-Item 'branding/*' 'main' -Recurse -Force
