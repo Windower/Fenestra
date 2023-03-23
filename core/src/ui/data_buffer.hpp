@@ -25,6 +25,7 @@
 #ifndef WINDOWER_UI_DATA_BUFFER_HPP
 #define WINDOWER_UI_DATA_BUFFER_HPP
 
+#include "ui/commands.hpp"
 #include "ui/command_buffer.hpp"
 #include "ui/data_buffer_traits.hpp"
 

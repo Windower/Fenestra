@@ -377,7 +377,7 @@ color bitmap::sample(context& ctx, vector const& coordinate) const noexcept
     auto const buffer       = std::as_writable_bytes(std::span{data});
     void* const buffer_ptr  = buffer.data();
     auto const buffer_bytes = static_cast<::BYTE*>(buffer_ptr);
-    ::WICRect rect{
+    ::WICRect const rect{
         .X      = gsl::narrow_cast<::INT>(x),
         .Y      = gsl::narrow_cast<::INT>(y),
         .Width  = 2,

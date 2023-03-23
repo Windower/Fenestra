@@ -77,7 +77,7 @@ void mouse::move(vector position) noexcept { m_position = position; }
 
 void mouse::press(mouse_button button) noexcept
 {
-    auto point = ::POINT{
+    auto const point = ::POINT{
         gsl::narrow_cast<::LONG>(m_position.x),
         gsl::narrow_cast<::LONG>(m_position.y)};
 
