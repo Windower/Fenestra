@@ -88,7 +88,7 @@ void set_clip_command::execute(::IDirect3DDevice8* d3d_device) const noexcept
 {
     Expects(d3d_device != nullptr);
 
-    ::D3DVIEWPORT8 viewport{m_x, m_y, m_width, m_height, 0.f, 1.f};
+    ::D3DVIEWPORT8 const viewport{m_x, m_y, m_width, m_height, 0.f, 1.f};
     d3d_device->SetViewport(&viewport);
 }
 

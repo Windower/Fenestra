@@ -79,7 +79,8 @@ std::vector<unsigned char> process_attributes(
             }
             c = 0xFFFD;
         }
-        auto count = windower::to_sjis_string(std::wstring_view{&c, 1}).size();
+        auto const count =
+            windower::to_sjis_string(std::wstring_view{&c, 1}).size();
         auto attr  = gsl::at(attr_buffer, attr_index++);
         for (std::size_t n = 0; n < count; ++n)
         {

@@ -715,7 +715,7 @@ texture text_rasterizer::rasterize(
             texture_w, texture_h, ::GUID_WICPixelFormat32bppPBGRA,
             ::WICBitmapCacheOnDemand, bitmap_ptr.put());
 
-        ::D2D1_RENDER_TARGET_PROPERTIES properties = {
+        ::D2D1_RENDER_TARGET_PROPERTIES const properties = {
             ::D2D1_RENDER_TARGET_TYPE_DEFAULT,
             {::DXGI_FORMAT_B8G8R8A8_UNORM, ::D2D1_ALPHA_MODE_PREMULTIPLIED},
             96.f * scale.x,

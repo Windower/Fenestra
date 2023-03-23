@@ -196,10 +196,10 @@ void set_thread_name_seh(windower::zstring_view name)
 {
     __try
     {
-        threadname_info info{.szName = name.c_str()};
+        threadname_info const info{.szName = name.c_str()};
         ::RaiseException(
             MS_VC_EXCEPTION, 0, sizeof info / sizeof(::ULONG_PTR),
-            reinterpret_cast<::ULONG_PTR*>(&info));
+            reinterpret_cast<::ULONG_PTR const*>(&info));
     }
     __except (
         ::GetExceptionCode() == MS_VC_EXCEPTION ? EXCEPTION_EXECUTE_HANDLER
@@ -219,7 +219,7 @@ void windower::set_thread_name(u8zstring_view name)
                 kernel32.get_function<decltype(::SetThreadDescription)>(
                     u8"SetThreadDescription"))
         {
-            auto result = SetThreadDescription(
+            auto const result = SetThreadDescription(
                 ::GetCurrentThread(), to_wstring(name).c_str());
             if (SUCCEEDED(result))
             {
