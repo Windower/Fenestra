@@ -2,6 +2,8 @@
 /build
 /packages
 /vcpkg_installed
+
+# IDE Files
 .vs
 .vscode
 
