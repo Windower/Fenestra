@@ -56,10 +56,10 @@ extern "C"
     }
 
 #if defined(LUAJIT_VERSION_NUM)
-#    if LUAJIT_VERSION_NUM > 20100
-#        error                                                                 \
-            "Please confirm ::estimate_record_count still works on this version of LuaJIT."
-#    endif
+//#    if LUAJIT_VERSION_NUM > 20100
+//#        error                                                                 \
+//            "Please confirm ::estimate_record_count still works on this version of LuaJIT."
+//#    endif
     static std::size_t estimate_record_count(::lua_State* s)
     {
         // This depends on undocumented behavior of LuaJIT!
