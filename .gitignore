@@ -1,10 +1,9 @@
 # Build Files
 /build
 /packages
-
-# IDE Files
-/.vs
-/.vscode
+/vcpkg_installed
+.vs
+.vscode
 
 # User Files
 *.user
