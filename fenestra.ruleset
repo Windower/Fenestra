@@ -28,9 +28,13 @@ SOFTWARE.
     <Rule Id="C26434" Action="None" />
     <Rule Id="C26447" Action="None" />
     <Rule Id="C26459" Action="None" />
+    <Rule Id="C26473" Action="None" />
+    <Rule Id="C26474" Action="None" />
     <Rule Id="C26486" Action="None" />
     <Rule Id="C26487" Action="None" />
     <Rule Id="C26489" Action="None" />
+    <Rule Id="C26490" Action="None" />
+    <Rule Id="C26492" Action="None" />
     <Rule Id="C26812" Action="None" />
     <Rule Id="C26821" Action="None" />
   </Rules>

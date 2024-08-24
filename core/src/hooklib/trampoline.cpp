@@ -418,7 +418,7 @@ public:
                       : std::bit_cast<std::uint8_t*>(callback)};
             ::InterlockedExchange16(
                 std::bit_cast<short*>(m_target),
-                short(x86::hotpatch_jump_instruction));
+                gsl::narrow_cast<short>(x86::hotpatch_jump_instruction));
         }
         else
         {

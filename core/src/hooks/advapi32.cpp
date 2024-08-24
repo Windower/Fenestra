@@ -112,7 +112,7 @@ T convert(U value) noexcept
 }
 
 template<typename T>
-T convert(float value) noexcept
+constexpr T convert(float value) noexcept
 {
     return *std::bit_cast<T*>(&value);
 }

@@ -114,7 +114,7 @@ windower::packet_result windower::trigger_packet(
             lua::push(guard, result_data);
         }
         lua::push(guard, counter);
-        lua::push(guard, double(timestamp));
+        lua::push(guard, static_cast<double>(timestamp));
         lua::push(guard, blocked);
         lua::push(guard, injected_by);
         lua::call(guard, 9, 2);

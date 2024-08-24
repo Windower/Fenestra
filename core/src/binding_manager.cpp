@@ -1318,7 +1318,7 @@ void windower::binding_manager::unregister_device(
     auto const device_id = it->second.id;
     auto end             = std::remove_if(
                     m_bindings.begin(), m_bindings.end(),
-                    [device_id](auto const& b) { return b.device_mask[device_id]; });
+                    [device_id](auto const& b) { return gsl::at(b.device_mask, device_id); });
     m_bindings.erase(end, m_bindings.end());
     m_descriptors.erase(it);
     std::get<1>(gsl::at(m_devices, device_id)).clear();

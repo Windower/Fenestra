@@ -115,7 +115,8 @@ windower::package_version::package_version(std::u8string_view value) :
     package_version(to_string_view(value))
 {}
 
-windower::package_version::package_version(std::string_view value)
+windower::package_version::package_version(std::string_view value) :
+    minor{}, revision{}, build{}
 {
     value.remove_prefix(parse(value, major));
     if (!value.empty() && value.front() != u8'.')
