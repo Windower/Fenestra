@@ -381,7 +381,7 @@ SOFTWARE.
                     <RadioButton Content="{StaticResource Strings.FontTypeCompressed}" Margin="11,4,0,0" Grid.Row="9" Grid.ColumnSpan="2" IsChecked="{Binding FontType, ConverterParameter={x:Static core:FontType.Compressed}, Converter={StaticResource BooleanEqualityConverter}}"/>
                     <RadioButton Content="{StaticResource Strings.FontTypeUncompressed}" Margin="11,4,0,0" Grid.Row="10" Grid.ColumnSpan="2" IsChecked="{Binding FontType, ConverterParameter={x:Static core:FontType.Uncompressed}, Converter={StaticResource BooleanEqualityConverter}}"/>
                     <RadioButton Content="{StaticResource Strings.FontTypeHighQuality}" Margin="11,4,0,0" Grid.Row="11" VerticalAlignment="Top" Grid.ColumnSpan="2" IsChecked="{Binding FontType, ConverterParameter={x:Static core:FontType.HighQuality}, Converter={StaticResource BooleanEqualityConverter}}" Height="20"/>
-                    <CheckBox Grid.ColumnSpan="2" Content="Play opening movie" Grid.Column="3" Margin="0,12,12,0" Grid.Row="8" Grid.RowSpan="2" Style="{StaticResource YesNoToggleSwitch}" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" IsChecked="{Binding PlayIntro}"/>
+                    <CheckBox Grid.ColumnSpan="2" Content="{StaticResource Strings.PlayIntro}" Grid.Column="3" Margin="0,12,12,0" Grid.Row="8" Grid.RowSpan="2" Style="{StaticResource YesNoToggleSwitch}" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" IsChecked="{Binding PlayIntro}"/>
                 </Grid>
             </TabItem>
             <TabItem>
