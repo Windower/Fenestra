@@ -266,7 +266,7 @@ bool windower::package::can_update() const noexcept { return m_can_update; }
 windower::package_manager::package_manager() noexcept
 {
     m_package_sources.push_back(
-        {u8"https://packages.windower.net",
+        {u8"https://files.windower.net/5/packages",
          u8"D103E5FA-AD95-4407-A1E3-2D3E83404E63", true});
     m_package_sources.push_back(
         {u8"https://windower.github.io/Resources",

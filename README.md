@@ -32,7 +32,7 @@ This project uses the [MIT][license] license.
 <!-- References -->
 
 [github-project]: https://github.com/Windower/Fenestra
-[windower-homepage]: https://windower.net
+[windower-homepage]: https://www.windower.net
 
 [banner]: https://github.com/Windower/Fenestra/raw/media/banner.png
 
