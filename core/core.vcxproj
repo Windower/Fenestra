@@ -33,7 +33,7 @@
     <VcpkgConfiguration>Release</VcpkgConfiguration>
   </PropertyGroup>
   <Target Name="BootstrapVcpkg" BeforeTargets="VcpkgInstallManifestDependencies">
-    <Exec Command="$(SolutionDir)extern\vcpkg\bootstrap-vcpkg -disableMetrics" />
+    <Exec Command="&quot;$(SolutionDir)extern\vcpkg\bootstrap-vcpkg&quot; -disableMetrics" />
   </Target>
   <Import Project="$(SolutionDir)extern\vcpkg\scripts\buildsystems\msbuild\vcpkg.targets" />
   <ItemGroup>
