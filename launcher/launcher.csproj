@@ -218,6 +218,10 @@
     <Resource Include="res\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="res\Strings.ja-jp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="res\Strings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
