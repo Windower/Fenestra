@@ -48,12 +48,8 @@ extern "C"
         std::vector<std::byte> data{data_ptr, data_ptr + data_size};
         std::u8string injected_by{injected_by_ptr, injected_by_size};
 
-        windower::core::instance().run_on_next_frame(
-            [id, data = std::move(data),
-             injected_by = std::move(injected_by)]() mutable {
-                windower::core::instance().incoming_packet_queue->queue(
-                    id, std::move(data), std::move(injected_by));
-            });
+        windower::core::instance().incoming_packet_queue->queue(
+            id, std::move(data), std::move(injected_by));
     }
 
     static void inject_outgoing_native(
@@ -63,12 +59,8 @@ extern "C"
         std::vector<std::byte> data{data_ptr, data_ptr + data_size};
         std::u8string injected_by{injected_by_ptr, injected_by_size};
 
-        windower::core::instance().run_on_next_frame(
-            [id, data = std::move(data),
-             injected_by = std::move(injected_by)]() mutable {
-                windower::core::instance().outgoing_packet_queue->queue(
-                    id, std::move(data), std::move(injected_by));
-            });
+        windower::core::instance().outgoing_packet_queue->queue(
+            id, std::move(data), std::move(injected_by));
     }
 }
 
