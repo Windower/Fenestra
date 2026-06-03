@@ -29,7 +29,7 @@ jobs:
         with:
           path: main
           submodules: recursive
-          fetch-depth: 0
+          fetch-depth: 0 # git still complains about submodules if this is missing as of 2026
       - name: Checkout branding
         if: github.repository == 'Windower/Fenestra' && github.event_name == 'push'
         uses: actions/checkout@v6
