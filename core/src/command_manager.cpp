@@ -676,9 +676,10 @@ bool windower::command_manager::descriptor::operator==(
 std::strong_ordering windower::command_manager::descriptor::operator<=>(
     descriptor const& other) const noexcept
 {
-    auto const result = command.compare(other.command);
-    return result != 0 ? result <=> 0
-                       : component.compare(other.component) <=> 0;
+    if (auto const result = command.compare(other.command); result != 0)
+        return result <=> 0;
+
+    return component.compare(other.component) <=> 0;
 }
 
 windower::command_manager::name_view::name_view(
