@@ -9,7 +9,7 @@ on:
 env:
   SYMBOLS_DAYS_TO_KEEP: 14
   SYMBOLS_KEEP_LAST: 10
-  
+
 defaults:
   run:
     shell: pwsh
@@ -29,6 +29,7 @@ jobs:
         with:
           path: main
           submodules: recursive
+          fetch-depth: 0
       - name: Checkout branding
         if: github.repository == 'Windower/Fenestra' && github.event_name == 'push'
         uses: actions/checkout@v6
