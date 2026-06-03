@@ -93,7 +93,7 @@ auto operator co_await(std::future<R> future) noexcept
     {
         bool await_ready() const noexcept
         {
-            return this->wait_for(std::chrono::seconds(0)) !=
+            return this->wait_for(std::chrono::seconds::zero()) !=
                    std::future_status::timeout;
         }
 

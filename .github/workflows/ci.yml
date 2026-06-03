@@ -17,35 +17,28 @@ defaults:
 jobs:
   build:
     name: Build
-    runs-on: windows-2022
-    if: |
-      !contains(github.event.head_commit.message, '***NO_CI***') &&
-      !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: windows-2025-vs2026
+    if: "!contains(github.event.head_commit.message, '[no ci]')"
     steps:
       - name: Set up build environment
-        uses: microsoft/setup-msbuild@v1.1
+        uses: microsoft/setup-msbuild@v3
       - name: Set up NuGet
-        uses: nuget/setup-nuget@v1
+        uses: nuget/setup-nuget@v2
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           path: main
           submodules: recursive
-          fetch-depth: 0 # git complains when cloning the submodules without this
       - name: Checkout branding
-        if:
-          github.repository == 'Windower/Fenestra' &&
-          github.event_name == 'push'
-        uses: actions/checkout@v3
+        if: github.repository == 'Windower/Fenestra' && github.event_name == 'push'
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.BRANDING_PAT }}
           repository: Windower/Branding
           ref: ${{ github.ref_name == 'stable' && '5.0/release' || '5.0/test' }}
           path: branding
       - name: Apply branding
-        if:
-          github.repository == 'Windower/Fenestra' &&
-          github.event_name == 'push'
+        if: github.repository == 'Windower/Fenestra' && github.event_name == 'push'
         run: |
           Remove-Item 'branding/.git' -Recurse -Force
           Copy-Item 'branding/*' 'main' -Recurse -Force
@@ -61,69 +54,3 @@ jobs:
         run: |
           Set-Location main
           .github/workflows/index-sources
-      - name: Upload build artifacts
-        if: github.event_name == 'push'
-        uses: actions/upload-artifact@v3
-        with:
-          name: binaries
-          path: main/build/bin/release/
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: windows-2022
-    if: |
-      github.repository == 'Windower/Fenestra' &&
-      github.event_name == 'push'
-    steps:
-      - name: Set up SSH
-        run: |
-          # Set up SSH
-          Write-Output 'Starting ssh-agent service...'
-          Get-Service -Name 'ssh-agent' | Set-Service -StartupType Manual
-          Start-Service -Name 'ssh-agent'
-          New-Item -ItemType Directory -Force -Path '~/.ssh' *>$null
-          $env:SSH_KEY | &ssh-add -
-          &ssh-keyscan -H "$(
-            @($env:SSH_HOST) + (Resolve-DnsName $env:SSH_HOST).IPAddress -Join ','
-          )" | Add-Content '~/.ssh/known_hosts'
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: binaries
-          path: artifacts
-      - name: Stage files
-        run: |
-          # Stage files
-          New-Item -ItemType Directory -Force -Path './staging/files' *>$null
-          Copy-Item './artifacts/windower.exe' -Destination './staging/files'
-          Copy-Item './artifacts/core.dll' -Destination './staging/files'
-          Copy-Item './artifacts/version.xml' -Destination './staging/files'
-          Copy-Item './artifacts/windower.msi' -Destination './staging/files'
-          Copy-Item './artifacts/windower.zip' -Destination './staging/files'
-          Copy-Item './artifacts/windower.portable.zip' -Destination './staging/files'
-          
-          New-Item -ItemType Directory -Force -Path './temp/symbols' *>$null
-          Copy-Item './artifacts/windower.exe' -Destination './temp/symbols/'
-          Copy-Item './artifacts/windower.pdb' -Destination './temp/symbols/'
-          Copy-Item './artifacts/core.dll' -Destination './temp/symbols/'
-          Copy-Item './artifacts/core.pdb' -Destination './temp/symbols/'
-      - name: Install debug tools
-        run: choco install windows-sdk-10-version-2004-windbg
-      - name: Update symbol database
-        run: .github/workflows/update-symbols
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SYMBOLS_PATH: ${{ secrets.SYMBOLS_PATH }}/${{ github.ref_name == 'stable' && 'release' || 'test' }}
-      - name: Deploy to server
-        run: .github/workflows/deploy
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          FILES_PATH: ${{ secrets.FILES_PATH }}/${{ github.ref_name == 'stable' && 'release' || 'test' }}
-          SYMBOLS_PATH: ${{ secrets.SYMBOLS_PATH }}/${{ github.ref_name == 'stable' && 'release' || 'test' }}
