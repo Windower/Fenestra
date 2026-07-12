@@ -1,0 +1,173 @@
+<!--
+Copyright © Windower Dev Team
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files
+(the "Software"),to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Strings.About">このアプリについて</sys:String>
+    <sys:String x:Key="Strings.AdjustResolution">解像度を調整</sys:String>
+    <sys:String x:Key="Strings.RegionAuto">自動判別</sys:String>
+    <sys:String x:Key="Strings.ModeBorderless">枠無しウィンドウ</sys:String>
+    <sys:String x:Key="Strings.Cancel">キャンセル</sys:String>
+    <sys:String x:Key="Strings.Close">閉じる</sys:String>
+    <sys:String x:Key="Strings.CopyrightError">Error retrieving assembly copyright information</sys:String>
+    <sys:String x:Key="Strings.CoreVersion">Core version:</sys:String>
+    <sys:String x:Key="Strings.CreateProfile">新規プロファイル</sys:String>
+    <sys:String x:Key="Strings.Display">Display</sys:String>
+    <sys:String x:Key="Strings.EditProfile">プロファイルの編集</sys:String>
+    <sys:String x:Key="Strings.UpdateStatusChecking">更新を確認しています</sys:String>
+    <sys:String x:Key="Strings.UpdateStatusDownloadingLauncher">ランチャーをダウンロード中</sys:String>
+    <sys:String x:Key="Strings.UpdateStatusDownloadingCore">コアをダウンロード中</sys:String>
+    <sys:String x:Key="Strings.UpdateStatusInstalling">更新をインストールしています</sys:String>
+    <sys:String x:Key="Strings.UpdateStatusRestarting">Windowerを再起動しています</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusElevating">PlayOnline Viewerを管理者権限で起動しています</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusInstalling">SteamがFinal Fantasy XIをインストールするのを待機しています</sys:String>
+    <sys:String x:Key="Strings.RegionEU">ヨーロッパ</sys:String>
+    <sys:String x:Key="Strings.ModeFullScreen">全画面</sys:String>
+    <sys:String x:Key="Strings.FullScreenWarning">ウィンドウ切り替えは全画面に対応していません</sys:String>
+    <sys:String x:Key="Strings.GeneralSettings">全般</sys:String>
+    <sys:String x:Key="Strings.GitHub">GitHub</sys:String>
+    <sys:String x:Key="Strings.Height">高さ</sys:String>
+    <sys:String x:Key="Strings.RegionJP">日本</sys:String>
+    <sys:String x:Key="Strings.Launch">起動</sys:String>
+    <sys:String x:Key="Strings.LauncherVersion">Launcher version:</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusCheckingDirectPlay">DirectPlayを確認中</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusInstallingDirectPlay">DirectPlayをインストールしています</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusLaunching">PlayOnline Viewerを起動中</sys:String>
+    <sys:String x:Key="Strings.Minimize">最小化</sys:String>
+    <sys:String x:Key="Strings.NewProfileNameFormat">プロファイル {0}</sys:String>
+    <sys:String x:Key="Strings.No">いいえ</sys:String>
+    <sys:String x:Key="Strings.RegionNA">北アメリカ</sys:String>
+    <sys:String x:Key="Strings.Off">オフ</sys:String>
+    <sys:String x:Key="Strings.On">オン</sys:String>
+    <sys:String x:Key="Strings.PrimaryDisplay">基本ディスプレイ ({0})</sys:String>
+    <sys:String x:Key="Strings.ProfileNameConflictError">そのプロファイル名は既に存在しています。</sys:String>
+    <sys:String x:Key="Strings.ProfileNameEmptyError">プロファイル名は空にできません。</sys:String>
+    <sys:String x:Key="Strings.Region">リージョン</sys:String>
+    <sys:String x:Key="Strings.RemoveProfile">プロファイルを削除</sys:String>
+    <sys:String x:Key="Strings.ReportBug">バグを報告する</sys:String>
+    <sys:String x:Key="Strings.Resolution">解像度</sys:String>
+    <sys:String x:Key="Strings.ResolutionFormat">{0} × {1}</sys:String>
+    <sys:String x:Key="Strings.SeeMore">もっと見る</sys:String>
+    <sys:String x:Key="Strings.SupportForums">サポートフォーラム</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusTransferringSettings">設定を転送中</sys:String>
+    <sys:String x:Key="Strings.UseSteam">Steam®経由で起動する</sys:String>
+    <sys:String x:Key="Strings.LaunchStatusWaitingForWindow">PlayOnline Viewerの起動を待っています</sys:String>
+    <sys:String x:Key="Strings.Width">幅</sys:String>
+    <sys:String x:Key="Strings.Docs">ドキュメント</sys:String>
+    <sys:String x:Key="Strings.ModeWindow">ウィンドウ</sys:String>
+    <sys:String x:Key="Strings.WindowerWebsite">Windower公式サイト</sys:String>
+    <sys:String x:Key="Strings.WindowType">モード</sys:String>
+    <sys:String x:Key="Strings.Yes">はい</sys:String>
+    <sys:String x:Key="Strings.AdjustUIScale">UI表示倍率を調整</sys:String>
+    <sys:String x:Key="Strings.AdvancedSettings">上級者向け</sys:String>
+    <sys:String x:Key="Strings.BumpMapping">陰影による凹凸表現</sys:String>
+    <sys:String x:Key="Strings.EnvironmentAnimation">環境アニメーション</sys:String>
+    <sys:String x:Key="Strings.EnvironmentAnimationNormal">限定</sys:String>
+    <sys:String x:Key="Strings.EnvironmentAnimationOff">なし</sys:String>
+    <sys:String x:Key="Strings.EnvironmentAnimationSmooth">なめらか</sys:String>
+    <sys:String x:Key="Strings.GraphicsSettings">グラフィック</sys:String>
+    <sys:String x:Key="Strings.MapCompression">圧縮されたエリアマップ</sys:String>
+    <sys:String x:Key="Strings.Mipmapping">遠距離表現を精細にする</sys:String>
+    <sys:String x:Key="Strings.Mipmapping0">なし</sys:String>
+    <sys:String x:Key="Strings.Mipmapping1">低</sys:String>
+    <sys:String x:Key="Strings.Mipmapping2">中</sys:String>
+    <sys:String x:Key="Strings.Mipmapping3">高</sys:String>
+    <sys:String x:Key="Strings.MiscellaneousSettings">その他</sys:String>
+    <sys:String x:Key="Strings.Save">保存</sys:String>
+    <sys:String x:Key="Strings.SupersampleAntiAliasing">アンチエイリアシング</sys:String>
+    <sys:String x:Key="Strings.SupersampleAntiAliasingFormat">{0:0.##×}</sys:String>
+    <sys:String x:Key="Strings.TextureCompression">テクスチャ品質</sys:String>
+    <sys:String x:Key="Strings.TextureCompressionHigh">低</sys:String>
+    <sys:String x:Key="Strings.TextureCompressionLow">標準</sys:String>
+    <sys:String x:Key="Strings.TextureCompressionUncompressed">高品質</sys:String>
+    <sys:String x:Key="Strings.UIScaleFormat">{0:0%}</sys:String>
+    <sys:String x:Key="Strings.AdjustGamma">明るさ調整</sys:String>
+    <sys:String x:Key="Strings.AdjustPosition">ウィンドウ位置を調整</sys:String>
+    <sys:String x:Key="Strings.Debug">デバッグコンソール</sys:String>
+    <sys:String x:Key="Strings.ChangeSettingsPath">設定保存先を上書き</sys:String>
+    <sys:String x:Key="Strings.ChangeUserPath">ユーザデータ保存先を上書き</sys:String>
+    <sys:String x:Key="Strings.ChangeTempPath">一時データ保存先を上書き</sys:String>
+    <sys:String x:Key="Strings.SelectSettingsPath">設定保存先を選択してください</sys:String>
+    <sys:String x:Key="Strings.SelectUserPath">ユーザデータ保存先を選択してください</sys:String>
+    <sys:String x:Key="Strings.SelectTempPath">一時データ保存先を選択してください</sys:String>
+    <sys:String x:Key="Strings.Browse">参照</sys:String>
+    <sys:String x:Key="Strings.DriverStability">ビデオカードの安定性を改善</sys:String>
+    <sys:String x:Key="Strings.FontType">フォント</sys:String>
+    <sys:String x:Key="Strings.FontTypeCompressed">標準</sys:String>
+    <sys:String x:Key="Strings.FontTypeHighQuality">高品質</sys:String>
+    <sys:String x:Key="Strings.FontTypeUncompressed">非圧縮</sys:String>
+    <sys:String x:Key="Strings.GammaFormat">{0:0.0}</sys:String>
+    <sys:String x:Key="Strings.Horizontal">水平位置</sys:String>
+    <sys:String x:Key="Strings.MaxSounds">効果音同時発音数</sys:String>
+    <sys:String x:Key="Strings.MaxSoundsFormat">{0:0;;Sound disabled}</sys:String>
+    <sys:String x:Key="Strings.PlayIntro">オープニングムービーを再生</sys:String>
+    <sys:String x:Key="Strings.PlaySoundWhenUnfocused">非アクティブ状態でサウンドを再生する</sys:String>
+    <sys:String x:Key="Strings.Vertical">垂直位置</sys:String>
+    <sys:String x:Key="Strings.ElevationRequired">PlayOnline Viewerを実行するには管理者権限が必要です。</sys:String>
+    <sys:String x:Key="Strings.AdjustAccessControl">権限の調整</sys:String>
+    <sys:String x:Key="Strings.FixAccessControlPrompt">管理者権限が必要です</sys:String>
+    <sys:String x:Key="Strings.FixAccessControlDescription">現在、PlayOnline Viewerを実行するには管理者権限が必要です。PlayOnline Viewerが管理者権限なしで実行できるようにしますか？</sys:String>
+    <sys:String x:Key="Strings.DoNotAskAgain">今後、このメッセージを表示しない</sys:String>
+    <sys:String x:Key="Strings.CreateProfileLink">デスクトップにショートカットを作成</sys:String>
+    <sys:String x:Key="Strings.ProfileLinkFormat">Windower ({0})</sys:String>
+    <sys:String x:Key="Strings.CopyProfile">コピーを作成</sys:String>
+    <sys:String x:Key="Strings.ProfileCopyNameFormat">{0} (Copy {1})</sys:String>
+    <sys:String x:Key="Strings.ClientNotFound">WindowerがFinal Fantasy XIの場所を特定できません</sys:String>
+    <sys:String x:Key="Strings.ClientNotFoundDescription">その機能を利用するにはFinal Fantasy XIのインストールが必要です</sys:String>
+    <sys:String x:Key="Strings.DirectPlayPrompt">DirectPlayがインストールされていません</sys:String>
+    <sys:String x:Key="Strings.DirectPlayDescription">Final Fantasy XIはDirectPlayを利用しています。DirectPlayはDirectX 8.1のオプショナルコンポーネントのため、Windows 8以降ではデフォルトでインストールされていません。DirectPlayをインストールしますか？</sys:String>
+    <sys:String x:Key="Strings.Install">インストール</sys:String>
+    <sys:String x:Key="Strings.Exit">終了</sys:String>
+    <sys:String x:Key="Strings.Crashed">Windowerは不具合によりクラッシュしました</sys:String>
+    <sys:String x:Key="Strings.CrashReporterPreparing">クラッシュに関する情報を収集しています</sys:String>
+    <sys:String x:Key="Strings.CrashReporterCheckingReport">この問題が既に修正されているか調べています</sys:String>
+    <sys:String x:Key="Strings.CrashReporterSigningIn">サインイン</sys:String>
+    <sys:String x:Key="Strings.CrashReporterVerifying">アイデンティティを確認中</sys:String>
+    <sys:String x:Key="Strings.CrashReporterCreatingGist">クラッシュレポートのgistを作成中</sys:String>
+    <sys:String x:Key="Strings.CrashReporterCloning">クラッシュレポートの送信準備中</sys:String>
+    <sys:String x:Key="Strings.CrashReporterEncrypting">クラッシュレポートのデータを暗号化しています</sys:String>
+    <sys:String x:Key="Strings.CrashReporterStaging">クラッシュレポートの送信準備中</sys:String>
+    <sys:String x:Key="Strings.CrashReporterPackaging">クラッシュレポートをパッケージングしています</sys:String>
+    <sys:String x:Key="Strings.CrashReporterTransferring" xml:space="preserve">クラッシュレポートをGitHubに送信中&#xD;&#xA;(この操作が完了するまで少し時間がかかります)</sys:String>
+    <sys:String x:Key="Strings.CrashReporterFetchingGistDetails">gistの詳細を取得中</sys:String>
+    <sys:String x:Key="Strings.CrashReporterCreatingIssue">このクラッシュレポートに関するチケットを作成しています</sys:String>
+    <sys:String x:Key="Strings.CrashReporterCreatingComment">このクラッシュレポートに関するチケットにコメント</sys:String>
+    <sys:String x:Key="Strings.CrashReporterSubmitPrompt">Windower開発チームにクラッシュレポートを送信しますか？</sys:String>
+    <sys:String x:Key="Strings.CrashReporterSubmitDisclaimerEncrypted" xml:space="preserve">クラッシュレポートが生成されました。このレポートはWindower開発チームが問題を修正する一助となります。このクラッシュレポートには不具合発生時のWindowerとOSの状態に関する情報が含まれています。 収拾された情報は不具合修正のためだけに利用され、送信される前に暗号化されるので第三者が情報を読むことはありません。&#xD;&#xA;&#xD;&#xA;クラッシュレポートの送信にはGitHubアカウントが必要です。レポートはあなたのGitHubアカウントのgistとして送信され、チケットに関連付けられます。</sys:String>
+    <sys:String x:Key="Strings.CrashReporterSubmitDisclaimer" xml:space="preserve">クラッシュレポートが生成されました。このレポートはWindower開発チームが問題を修正する一助となります。このクラッシュレポートには不具合発生時のWindowerとOSの状態に関する情報が含まれています。 収拾された情報は不具合修正のためだけに利用され、送信される前に暗号化されるので第三者が情報を読むことはありません。&#xD;&#xA;&#xD;&#xA;クラッシュレポートの送信にはGitHubアカウントが必要です。レポートはあなたのGitHubアカウントのgistとして送信され、チケットに関連付けられます。</sys:String>
+    <sys:String x:Key="Strings.CrashReporterViewReport">クラッシュレポートの内容を見る</sys:String>
+    <sys:String x:Key="Strings.CrashReporterViewLocalReport">ローカルのクラッシュレポートを見る</sys:String>
+    <sys:String x:Key="Strings.CrashReporterViewRemoteReport">クラッシュレポートを見る</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportSubmitted">クラッシュレポートが送信されました</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportSubmittedDetails">クラッシュレポートは正常にWindower開発チームに送信されました。</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportExists">クラッシュは既に報告済みです</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportExistsDetails">このクラッシュは既にWindower開発チームに報告済みです。</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportNotSubmitted">クラッシュレポートが保存されました</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportNotSubmittedDetails">クラッシュレポートのファイルはハードディスクに保存されましたが、Windower開発チームには送信されていません。</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportingDisabled">クラッシュレポーティングは無効です</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportingDisabledDetails">このバージョンのWindowerは、クラッシュレポートは無効化されています。クラッシュレポートのファイルはハードディスクに保存されています。</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportingFailed">クラッシュの報告に失敗しました</sys:String>
+    <sys:String x:Key="Strings.CrashReporterReportingFailedDetails">クラッシュレポートの送信中に問題が発生しました。クラッシュレポートのファイルはハードディスクに保存されています。</sys:String>
+    <sys:String x:Key="Strings.CrashReporterDeleteFiles">クラッシュレポートファイルを削除</sys:String>
+</ResourceDictionary>
